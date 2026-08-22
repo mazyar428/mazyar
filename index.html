@@ -1,110 +1,845 @@
-<div class="app">
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <header class="navbar">
-    <div class="logo">MAZYAR<span>.</span></div>
+<title>MAZYAR Store</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,sans-serif;
+  background:#f6f6f4;
+  color:#111;
+}
+
+button,input{
+  font-family:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:#fff;
+  border-bottom:1px solid #eee;
+}
+
+.navbar{
+  min-height:75px;
+  padding:12px 6%;
+  display:flex;
+  align-items:center;
+  gap:20px;
+}
+
+.logo{
+  font-size:28px;
+  font-weight:900;
+  direction:ltr;
+}
+
+.logo span{
+  color:#7c3aed;
+}
+
+.search{
+  flex:1;
+  max-width:520px;
+  height:45px;
+  background:#f1f1ef;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  padding:0 15px;
+}
+
+.search input{
+  width:100%;
+  border:0;
+  outline:0;
+  background:transparent;
+  font-size:15px;
+}
+
+.cart-btn{
+  border:0;
+  background:#111;
+  color:#fff;
+  border-radius:12px;
+  padding:12px 16px;
+}
+
+.cart-btn span{
+  background:#7c3aed;
+  padding:2px 7px;
+  border-radius:20px;
+}
+
+.hero{
+  margin:30px 6%;
+  min-height:400px;
+  border-radius:30px;
+  padding:55px 7%;
+  color:white;
+  background:linear-gradient(135deg,#111,#29154f);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  overflow:hidden;
+}
+
+.hero small{
+  color:#bda7ff;
+  font-weight:bold;
+}
+
+.hero h1{
+  font-size:clamp(60px,10vw,110px);
+  direction:ltr;
+  letter-spacing:5px;
+  margin:10px 0;
+}
+
+.hero p{
+  color:#ddd;
+  max-width:500px;
+  line-height:1.8;
+  margin-bottom:25px;
+}
+
+.main-btn{
+  border:0;
+  background:#8b5cf6;
+  color:white;
+  padding:15px 25px;
+  border-radius:14px;
+  font-weight:bold;
+}
+
+.hero-circle{
+  width:260px;
+  height:260px;
+  border-radius:50%;
+  background:#8b5cf6;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:110px;
+}
+
+.categories{
+  padding:0 6%;
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+}
+
+.category{
+  border:1px solid #ddd;
+  background:white;
+  padding:12px 20px;
+  border-radius:30px;
+  white-space:nowrap;
+}
+
+.category.active,
+.category:hover{
+  background:#111;
+  color:white;
+}
+
+main{
+  padding:55px 6%;
+}
+
+.section-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  margin-bottom:25px;
+}
+
+.section-title h2{
+  font-size:32px;
+}
+
+.section-title p{
+  color:#7c3aed;
+  font-weight:bold;
+}
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
+}
+
+.product{
+  position:relative;
+  background:#fff;
+  padding:13px;
+  border-radius:20px;
+  border:1px solid #eee;
+  transition:.25s;
+}
+
+.product:hover{
+  transform:translateY(-6px);
+  box-shadow:0 20px 40px #0002;
+}
+
+.product-image{
+  height:210px;
+  background:#f2f2f0;
+  border-radius:15px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:80px;
+  margin-bottom:15px;
+}
+
+.favorite{
+  position:absolute;
+  top:22px;
+  right:22px;
+  width:38px;
+  height:38px;
+  border:0;
+  background:white;
+  border-radius:50%;
+  font-size:21px;
+}
+
+.favorite.liked{
+  color:#e11d48;
+}
+
+.product h3{
+  margin-bottom:7px;
+}
+
+.product p{
+  color:#777;
+  font-size:13px;
+}
+
+.price-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:15px;
+}
+
+.price{
+  font-size:20px;
+  font-weight:900;
+  direction:ltr;
+}
+
+.add{
+  width:40px;
+  height:40px;
+  border:0;
+  border-radius:12px;
+  background:#111;
+  color:#fff;
+  font-size:22px;
+}
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:#0008;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  z-index:200;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  background:#fff;
+  width:min(500px,100%);
+  max-height:85vh;
+  overflow:auto;
+  border-radius:25px;
+  padding:30px;
+  position:relative;
+}
+
+.close{
+  position:absolute;
+  top:15px;
+  left:15px;
+  border:0;
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  font-size:20px;
+}
+
+.cart-item{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px 0;
+  border-bottom:1px solid #eee;
+}
+
+.cart-icon{
+  width:55px;
+  height:55px;
+  border-radius:12px;
+  background:#f2f2f0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:28px;
+}
+
+.cart-info{
+  flex:1;
+}
+
+.cart-info strong{
+  display:block;
+  margin-bottom:5px;
+}
+
+.remove{
+  border:0;
+  background:#fee2e2;
+  color:#b91c1c;
+  padding:8px;
+  border-radius:8px;
+}
+
+.total{
+  display:flex;
+  justify-content:space-between;
+  padding:20px 0;
+  font-size:20px;
+  font-weight:bold;
+}
+
+.checkout{
+  width:100%;
+  border:0;
+  background:#7c3aed;
+  color:white;
+  padding:15px;
+  border-radius:14px;
+  font-weight:bold;
+}
+
+.empty{
+  text-align:center;
+  padding:40px;
+  color:#777;
+}
+
+footer{
+  background:#111;
+  color:white;
+  padding:40px 6%;
+  text-align:center;
+  margin-top:50px;
+}
+
+footer p{
+  color:#aaa;
+  margin-top:8px;
+}
+
+@media(max-width:900px){
+  .products{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .hero-circle{
+    display:none;
+  }
+}
+
+@media(max-width:600px){
+  .navbar{
+    flex-wrap:wrap;
+  }
+
+  .search{
+    order:3;
+    flex-basis:100%;
+  }
+
+  .hero{
+    margin:20px 4%;
+    padding:40px 25px;
+  }
+
+  .hero h1{
+    font-size:65px;
+  }
+
+  main{
+    padding:40px 4%;
+  }
+
+  .products{
+    gap:12px;
+  }
+
+  .product-image{
+    height:160px;
+    font-size:60px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="navbar">
+
+    <div class="logo">
+      MAZY<span>AR</span>
+    </div>
 
     <div class="search">
-      <span>⌕</span>
-      <input id="searchInput" type="text" placeholder="گەڕان بەدوای کاڵا...">
+      🔎
+      <input
+        id="searchInput"
+        type="text"
+        placeholder="گەڕان بەدوای کاڵا..."
+      >
     </div>
 
-    <div class="nav-actions">
-      <button class="icon-btn" onclick="showFavorites()">♡</button>
-      <button class="cart-btn" onclick="openCart()">
-        🛒 <b id="cartCount">0</b>
-      </button>
-    </div>
-  </header>
-
-  <section class="hero">
-    <div class="hero-text">
-      <p class="small-title">بەخێربێیت بۆ</p>
-      <h1>MAZYAR</h1>
-      <p>
-        بازاڕێکی مۆدێرن بۆ کڕین و فرۆشتنی هەموو جۆرە کاڵاکان.
-      </p>
-
-      <button class="main-btn" onclick="scrollToProducts()">
-        ئێستا دەست پێبکە →
-      </button>
-    </div>
-
-    <div class="hero-card">
-      <div class="circle"></div>
-      <div class="hero-product">🛍️</div>
-      <div class="floating-box">NEW</div>
-    </div>
-  </section>
-
-  <section class="categories">
-    <button class="category active"
-      onclick="filterProducts('all', this)">
-      هەموو
+    <button class="cart-btn" onclick="openCart()">
+      🛒 سەبەتە
+      <span id="cartCount">0</span>
     </button>
 
-    <button class="category"
-      onclick="filterProducts('phone', this)">
-      📱 مۆبایل
+  </div>
+</header>
+
+<section class="hero">
+
+  <div>
+    <small>بەخێربێیت بۆ</small>
+
+    <h1>MAZYAR</h1>
+
+    <p>
+      فرۆشگایەکی مۆدێرن بۆ کڕین و فرۆشتنی
+      کاڵاکانی کوالیتی بەرز.
+    </p>
+
+    <button class="main-btn" onclick="scrollProducts()">
+      بینینی کاڵاکان
     </button>
+  </div>
 
-    <button class="category"
-      onclick="filterProducts('fashion', this)">
-      👕 جلوبەرگ
-    </button>
+  <div class="hero-circle">
+    🛍️
+  </div>
 
-    <button class="category"
-      onclick="filterProducts('tech', this)">
-      💻 تەکنەلۆجیا
-    </button>
+</section>
 
-    <button class="category"
-      onclick="filterProducts('home', this)">
-      🏠 ماڵ
-    </button>
-  </section>
+<div class="categories">
 
-  <main id="productsSection">
+  <button class="category active"
+    onclick="filterCategory('all',this)">
+    هەموو
+  </button>
 
-    <div class="section-title">
-      <div>
-        <p>باشترین هەڵبژاردە</p>
-        <h2>کاڵاکانی ئێمە</h2>
-      </div>
+  <button class="category"
+    onclick="filterCategory('phone',this)">
+    مۆبایل
+  </button>
 
-      <span id="productNumber">8 کاڵا</span>
+  <button class="category"
+    onclick="filterCategory('tech',this)">
+    تەکنەلۆجیا
+  </button>
+
+  <button class="category"
+    onclick="filterCategory('fashion',this)">
+    جلوبەرگ
+  </button>
+
+  <button class="category"
+    onclick="filterCategory('home',this)">
+    ماڵ
+  </button>
+
+</div>
+
+<main id="productsSection">
+
+  <div class="section-title">
+
+    <div>
+      <p>MAZYAR STORE</p>
+      <h2>کاڵاکانی ئێمە</h2>
     </div>
 
-    <div id="products" class="products"></div>
-
-  </main>
-
-  <div id="cartModal" class="modal">
-
-    <div class="modal-box">
-
-      <button class="close" onclick="closeCart()">×</button>
-
-      <h2>🛒 سەبەتەکەت</h2>
-
-      <div id="cartItems"></div>
-
-      <div class="total">
-        <span>کۆی گشتی</span>
-        <strong id="cartTotal">$0</strong>
-      </div>
-
-      <button class="checkout" onclick="checkout()">
-        کڕین تەواو بکە
-      </button>
-
-    </div>
+    <span id="productNumber"></span>
 
   </div>
 
-  <footer>
-    <div class="logo">MAZYAR<span>.</span></div>
-    <p>© 2026 MAZYAR — هەموو مافەکان پارێزراون.</p>
-  </footer>
+  <div class="products" id="products"></div>
+
+</main>
+
+<footer>
+
+  <h2>MAZYAR</h2>
+
+  <p>
+    فرۆشگای ئۆنلاین ــ هەموو مافەکان پارێزراون © 2026
+  </p>
+
+</footer>
+
+<div class="modal" id="cartModal">
+
+  <div class="modal-box">
+
+    <button class="close" onclick="closeCart()">×</button>
+
+    <h2>🛒 سەبەتەکەت</h2>
+
+    <div id="cartItems"></div>
+
+    <div class="total">
+      <span>کۆی گشتی:</span>
+      <span id="cartTotal">$0</span>
+    </div>
+
+    <button class="checkout" onclick="checkout()">
+      تەواوکردنی کڕین
+    </button>
+
+  </div>
 
 </div>
-<link rel="stylesheet" href="style.css">
+
+<script>
+
+const products = [
+
+  {
+    id:1,
+    name:"iPhone Pro",
+    category:"phone",
+    price:999,
+    icon:"📱"
+  },
+
+  {
+    id:2,
+    name:"Smart Watch",
+    category:"tech",
+    price:149,
+    icon:"⌚"
+  },
+
+  {
+    id:3,
+    name:"Premium Hoodie",
+    category:"fashion",
+    price:59,
+    icon:"👕"
+  },
+
+  {
+    id:4,
+    name:"Wireless Headphones",
+    category:"tech",
+    price:129,
+    icon:"🎧"
+  },
+
+  {
+    id:5,
+    name:"Laptop Pro",
+    category:"tech",
+    price:1299,
+    icon:"💻"
+  },
+
+  {
+    id:6,
+    name:"Modern Shoes",
+    category:"fashion",
+    price:89,
+    icon:"👟"
+  },
+
+  {
+    id:7,
+    name:"Home Speaker",
+    category:"home",
+    price:79,
+    icon:"🔊"
+  },
+
+  {
+    id:8,
+    name:"Professional Camera",
+    category:"tech",
+    price:699,
+    icon:"📷"
+  }
+
+];
+
+let cart = [];
+let favorites = new Set();
+let currentCategory = "all";
+
+function renderProducts(list = products){
+
+  const container =
+    document.getElementById("products");
+
+  container.innerHTML = list.map(product => `
+
+    <div class="product">
+
+      <button
+        class="favorite ${
+          favorites.has(product.id)
+          ? "liked"
+          : ""
+        }"
+        onclick="toggleFavorite(${product.id})">
+
+        ${
+          favorites.has(product.id)
+          ? "♥"
+          : "♡"
+        }
+
+      </button>
+
+      <div class="product-image">
+        ${product.icon}
+      </div>
+
+      <h3>${product.name}</h3>
+
+      <p>
+        کاڵای کوالیتی بەرز لە MAZYAR
+      </p>
+
+      <div class="price-row">
+
+        <span class="price">
+          $${product.price}
+        </span>
+
+        <button
+          class="add"
+          onclick="addToCart(${product.id})">
+          +
+        </button>
+
+      </div>
+
+    </div>
+
+  `).join("");
+
+  document.getElementById("productNumber")
+    .textContent =
+    list.length + " کاڵا";
+}
+
+function addToCart(id){
+
+  const product =
+    products.find(p => p.id === id);
+
+  cart.push(product);
+
+  document.getElementById("cartCount")
+    .textContent = cart.length;
+
+  alert("کاڵاکە زیادکرا بۆ سەبەتە 🛒");
+}
+
+function openCart(){
+
+  renderCart();
+
+  document.getElementById("cartModal")
+    .classList.add("show");
+}
+
+function closeCart(){
+
+  document.getElementById("cartModal")
+    .classList.remove("show");
+}
+
+function renderCart(){
+
+  const box =
+    document.getElementById("cartItems");
+
+  if(cart.length === 0){
+
+    box.innerHTML =
+      `<div class="empty">
+        سەبەتەکەت بەتاڵە 🛒
+      </div>`;
+
+  }else{
+
+    box.innerHTML =
+      cart.map((item,index) => `
+
+        <div class="cart-item">
+
+          <div class="cart-icon">
+            ${item.icon}
+          </div>
+
+          <div class="cart-info">
+            <strong>${item.name}</strong>
+            <span>$${item.price}</span>
+          </div>
+
+          <button
+            class="remove"
+            onclick="removeCart(${index})">
+            سڕینەوە
+          </button>
+
+        </div>
+
+      `).join("");
+  }
+
+  const total =
+    cart.reduce(
+      (sum,item) =>
+      sum + item.price,
+      0
+    );
+
+  document.getElementById("cartTotal")
+    .textContent = "$" + total;
+}
+
+function removeCart(index){
+
+  cart.splice(index,1);
+
+  document.getElementById("cartCount")
+    .textContent = cart.length;
+
+  renderCart();
+}
+
+function toggleFavorite(id){
+
+  if(favorites.has(id)){
+    favorites.delete(id);
+  }else{
+    favorites.add(id);
+  }
+
+  applyFilters();
+}
+
+function filterCategory(category,button){
+
+  currentCategory = category;
+
+  document.querySelectorAll(".category")
+    .forEach(b =>
+      b.classList.remove("active")
+    );
+
+  button.classList.add("active");
+
+  applyFilters();
+}
+
+function applyFilters(){
+
+  const search =
+    document.getElementById("searchInput")
+      .value
+      .toLowerCase();
+
+  const list =
+    products.filter(product => {
+
+      const categoryOK =
+        currentCategory === "all" ||
+        product.category === currentCategory;
+
+      const searchOK =
+        product.name
+          .toLowerCase()
+          .includes(search);
+
+      return categoryOK && searchOK;
+    });
+
+  renderProducts(list);
+}
+
+document.getElementById("searchInput")
+  .addEventListener(
+    "input",
+    applyFilters
+  );
+
+function scrollProducts(){
+
+  document.getElementById("productsSection")
+    .scrollIntoView({
+      behavior:"smooth"
+    });
+}
+
+function checkout(){
+
+  if(cart.length === 0){
+
+    alert("سەبەتەکەت بەتاڵە!");
+
+    return;
+  }
+
+  alert(
+    "سوپاس بۆ کڕین لە MAZYAR ❤️"
+  );
+}
+
+renderProducts();
+
+</script>
+
+</body>
+</html>
