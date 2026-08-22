@@ -2,617 +2,407 @@
 <!DOCTYPE html>
 <html lang="ku" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>MAZYAR AI</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: Arial, sans-serif;
-      color: white;
-      overflow: hidden;
-
-      background:
-        linear-gradient(
-          135deg,
-          rgba(0,0,0,.78),
-          rgba(0,0,0,.48),
-          rgba(0,0,0,.85)
-        ),
-        url("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2200&q=90")
-        center / cover fixed;
-    }
-
-    .page {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .container {
-      width: min(1050px, 100%);
-      min-height: 650px;
-
-      display: grid;
-      grid-template-columns: 1fr 430px;
-
-      background: rgba(10,10,10,.62);
-      backdrop-filter: blur(25px);
-
-      border: 1px solid rgba(255,255,255,.14);
-      border-radius: 32px;
-
-      overflow: hidden;
-
-      box-shadow:
-        0 30px 80px rgba(0,0,0,.55);
-    }
-
-    .left {
-      padding: 70px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-
-      background:
-        linear-gradient(
-          135deg,
-          rgba(255,255,255,.06),
-          rgba(255,255,255,.01)
-        );
-    }
-
-    .logo {
-      font-size: 52px;
-      font-weight: 900;
-      letter-spacing: 5px;
-      margin-bottom: 15px;
-    }
-
-    .tagline {
-      font-size: 24px;
-      line-height: 1.7;
-      color: #ddd;
-      max-width: 520px;
-    }
-
-    .features {
-      margin-top: 35px;
-      display: grid;
-      gap: 15px;
-    }
-
-    .feature {
-      display: flex;
-      align-items: center;
-      gap: 13px;
-
-      color: #ddd;
-      font-size: 16px;
-    }
-
-    .icon {
-      width: 40px;
-      height: 40px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      border-radius: 12px;
-
-      background: rgba(255,255,255,.1);
-      border: 1px solid rgba(255,255,255,.1);
-    }
-
-    .right {
-      padding: 45px 35px;
-
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-
-      background: rgba(0,0,0,.38);
-    }
-
-    .form-title {
-      font-size: 30px;
-      font-weight: 800;
-      margin-bottom: 8px;
-    }
-
-    .form-subtitle {
-      color: #aaa;
-      margin-bottom: 30px;
-    }
-
-    .input-group {
-      margin-bottom: 16px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 8px;
-      color: #ddd;
-      font-size: 14px;
-    }
-
-    input {
-      width: 100%;
-      height: 52px;
-
-      border: 1px solid rgba(255,255,255,.15);
-      border-radius: 14px;
-
-      outline: none;
-
-      background: rgba(255,255,255,.07);
-      color: white;
-
-      padding: 0 16px;
-
-      font-size: 15px;
-
-      transition: .2s;
-    }
-
-    input:focus {
-      border-color: rgba(255,255,255,.5);
-      background: rgba(255,255,255,.1);
-    }
-
-    input::placeholder {
-      color: #888;
-    }
-
-    .password-box {
-      position: relative;
-    }
-
-    .show-password {
-      position: absolute;
-      left: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-
-      border: 0;
-      background: transparent;
-      color: #aaa;
-
-      cursor: pointer;
-      font-size: 18px;
-    }
-
-    .main-button {
-      width: 100%;
-      height: 54px;
-
-      margin-top: 8px;
-
-      border: 0;
-      border-radius: 15px;
-
-      background: white;
-      color: black;
-
-      font-size: 16px;
-      font-weight: 800;
-
-      cursor: pointer;
-
-      transition: .2s;
-    }
-
-    .main-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 30px rgba(255,255,255,.12);
-    }
-
-    .divider {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-
-      margin: 22px 0;
-
-      color: #777;
-      font-size: 13px;
-    }
-
-    .divider::before,
-    .divider::after {
-      content: "";
-      height: 1px;
-      flex: 1;
-      background: rgba(255,255,255,.12);
-    }
-
-    .google {
-      width: 100%;
-      height: 52px;
-
-      border-radius: 14px;
-
-      border: 1px solid rgba(255,255,255,.15);
-
-      background: rgba(255,255,255,.06);
-      color: white;
-
-      cursor: pointer;
-
-      font-size: 15px;
-      font-weight: 600;
-    }
-
-    .switch {
-      text-align: center;
-      color: #888;
-      margin-top: 22px;
-      font-size: 14px;
-    }
-
-    .switch button {
-      border: 0;
-      background: transparent;
-      color: white;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    .error {
-      display: none;
-      margin-bottom: 15px;
-      padding: 11px;
-      border-radius: 10px;
-      background: rgba(255,60,60,.12);
-      border: 1px solid rgba(255,60,60,.25);
-      color: #ff9b9b;
-      font-size: 13px;
-    }
-
-    @media (max-width: 850px) {
-
-      body {
-        overflow: auto;
-      }
-
-      .container {
-        grid-template-columns: 1fr;
-        min-height: auto;
-      }
-
-      .left {
-        padding: 45px 30px;
-        text-align: center;
-      }
-
-      .logo {
-        font-size: 40px;
-      }
-
-      .tagline {
-        font-size: 18px;
-      }
-
-      .features {
-        text-align: right;
-      }
-
-      .right {
-        padding: 35px 25px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAZYAR AI</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:Arial,sans-serif;
+  color:white;
+  background:
+  linear-gradient(135deg,#0009,#0005,#000b),
+  url("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2200&q=90")
+  center/cover fixed;
+}
+
+.page{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.box{
+  width:min(1050px,100%);
+  min-height:620px;
+  display:grid;
+  grid-template-columns:1fr 430px;
+  overflow:hidden;
+  border-radius:30px;
+  background:#0009;
+  backdrop-filter:blur(25px);
+  border:1px solid #ffffff20;
+  box-shadow:0 30px 80px #0009;
+}
+
+.info{
+  padding:70px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.logo{
+  font-size:58px;
+  font-weight:900;
+  letter-spacing:5px;
+}
+
+.subtitle{
+  margin-top:15px;
+  color:#ddd;
+  font-size:23px;
+  line-height:1.8;
+}
+
+.features{
+  margin-top:35px;
+  display:grid;
+  gap:16px;
+}
+
+.feature{
+  color:#ddd;
+  font-size:16px;
+}
+
+.login{
+  padding:45px 35px;
+  background:#0007;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+h2{
+  margin:0;
+  font-size:30px;
+}
+
+.desc{
+  color:#999;
+  margin:10px 0 28px;
+}
+
+label{
+  display:block;
+  margin:12px 0 7px;
+  color:#ddd;
+  font-size:14px;
+}
+
+input{
+  width:100%;
+  height:52px;
+  padding:0 15px;
+  border-radius:13px;
+  border:1px solid #ffffff20;
+  outline:none;
+  background:#ffffff0d;
+  color:white;
+  font-size:15px;
+}
+
+input:focus{
+  border-color:#ffffff70;
+  background:#ffffff12;
+}
+
+button{
+  cursor:pointer;
+}
+
+.main{
+  width:100%;
+  height:53px;
+  margin-top:22px;
+  border:0;
+  border-radius:14px;
+  background:white;
+  color:#111;
+  font-size:16px;
+  font-weight:bold;
+}
+
+.switch{
+  text-align:center;
+  margin-top:22px;
+  color:#888;
+}
+
+.switch button{
+  border:0;
+  background:none;
+  color:white;
+  font-weight:bold;
+}
+
+.message{
+  display:none;
+  padding:11px;
+  margin-bottom:10px;
+  border-radius:10px;
+  background:#ffffff10;
+  color:#ddd;
+  font-size:13px;
+}
+
+@media(max-width:800px){
+  .box{grid-template-columns:1fr}
+  .info{
+    padding:40px 25px;
+    text-align:center;
+  }
+  .logo{font-size:42px}
+  .subtitle{font-size:18px}
+  .login{padding:35px 25px}
+}
+</style>
 </head>
 
 <body>
 
 <div class="page">
 
-  <div class="container">
+<div class="box">
 
-    <section class="left">
+<section class="info">
 
-      <div class="logo">
-        MAZYAR
-      </div>
+<div class="logo">MAZYAR</div>
 
-      <div class="tagline">
-        هاوڕێی زیرەکی دەستکردی کوردی
-        <br>
-        لەگەڵت بێت، هەر کاتێک پێویستت بوو. 🤖
-      </div>
+<div class="subtitle">
+هاوڕێی زیرەکی دەستکردی کوردی 🤖
+<br>
+هەمیشە لەگەڵتە.
+</div>
 
-      <div class="features">
+<div class="features">
+<div class="feature">🎙️ قسەکردن بە دەنگ</div>
+<div class="feature">🧠 زیرەکی دەستکرد</div>
+<div class="feature">🌐 گەڕان و زانیاری</div>
+<div class="feature">❤️ وەک هاوڕێ لەگەڵت</div>
+</div>
 
-        <div class="feature">
-          <div class="icon">🎙️</div>
-          قسەکردن بە دەنگ
-        </div>
-
-        <div class="feature">
-          <div class="icon">🧠</div>
-          زیرەکی دەستکرد
-        </div>
-
-        <div class="feature">
-          <div class="icon">🌐</div>
-          زانیاری و گەڕان
-        </div>
-
-        <div class="feature">
-          <div class="icon">❤️</div>
-          وەک هاوڕێ لەگەڵت دەبێت
-        </div>
-
-      </div>
-
-    </section>
+</section>
 
 
-    <section class="right">
+<section class="login">
 
-      <div class="form-title" id="title">
-        بەخێربێیت
-      </div>
+<h2 id="title">بەخێربێیت</h2>
 
-      <div class="form-subtitle" id="subtitle">
-        بچۆ ژوورەوە بۆ بەکارهێنانی MAZYAR AI
-      </div>
+<div class="desc" id="desc">
+بچۆ ژوورەوە بۆ MAZYAR AI
+</div>
 
-      <div class="error" id="error">
-        تکایە هەموو خانەکان پڕبکەرەوە.
-      </div>
+<div class="message" id="message"></div>
 
 
-      <div class="input-group" id="usernameGroup">
+<div id="usernameBox">
 
-        <label>
-          ناوی بەکارهێنەر
-        </label>
+<label>ناوی بەکارهێنەر</label>
 
-        <input
-          id="username"
-          type="text"
-          placeholder="بۆ نموونە: Mazyar"
-        >
+<input
+id="username"
+type="text"
+placeholder="ناوی تۆ"
+>
 
-      </div>
+</div>
 
 
-      <div class="input-group">
+<label>ئیمەیڵ</label>
 
-        <label>
-          ئیمەیڵ
-        </label>
-
-        <input
-          id="email"
-          type="email"
-          placeholder="you@example.com"
-        >
-
-      </div>
+<input
+id="email"
+type="email"
+placeholder="example@email.com"
+>
 
 
-      <div class="input-group">
+<label>پاسوۆرد</label>
 
-        <label>
-          پاسوۆرد
-        </label>
-
-        <div class="password-box">
-
-          <input
-            id="password"
-            type="password"
-            placeholder="••••••••"
-          >
-
-          <button
-            class="show-password"
-            onclick="togglePassword()">
-            👁
-          </button>
-
-        </div>
-
-      </div>
+<input
+id="password"
+type="password"
+placeholder="••••••••"
+>
 
 
-      <button
-        class="main-button"
-        onclick="submitForm()"
-        id="submitButton">
-
-        چوونەژوورەوە
-
-      </button>
+<button class="main" onclick="submitForm()" id="mainButton">
+چوونەژوورەوە
+</button>
 
 
-      <div class="divider">
-        یان
-      </div>
+<div class="switch">
 
+<span id="switchText">
+هەژمارت نییە؟
+</span>
 
-      <button
-        class="google"
-        onclick="googleLogin()">
+<button onclick="changeMode()" id="switchButton">
+هەژمار دروست بکە
+</button>
 
-        G &nbsp; بەردەوام بە Google ـەوە
+</div>
 
-      </button>
+</section>
 
-
-      <div class="switch">
-
-        <span id="switchText">
-          هەژمارت نییە؟
-        </span>
-
-        <button onclick="switchMode()" id="switchButton">
-          هەژمار دروست بکە
-        </button>
-
-      </div>
-
-    </section>
-
-  </div>
-
+</div>
 </div>
 
 
 <script>
 
-  let signupMode = false;
+let signup = false;
+
+const title =
+document.getElementById("title");
+
+const desc =
+document.getElementById("desc");
+
+const usernameBox =
+document.getElementById("usernameBox");
+
+const mainButton =
+document.getElementById("mainButton");
+
+const switchText =
+document.getElementById("switchText");
+
+const switchButton =
+document.getElementById("switchButton");
+
+const message =
+document.getElementById("message");
 
 
-  function switchMode() {
+function changeMode(){
 
-    signupMode = !signupMode;
+signup = !signup;
 
-    const title =
-      document.getElementById("title");
+if(signup){
 
-    const subtitle =
-      document.getElementById("subtitle");
+title.textContent =
+"هەژمار دروست بکە";
 
-    const usernameGroup =
-      document.getElementById("usernameGroup");
+desc.textContent =
+"هەژمارێکی نوێ بۆ MAZYAR AI دروست بکە";
 
-    const submitButton =
-      document.getElementById("submitButton");
+mainButton.textContent =
+"دروستکردنی هەژمار";
 
-    const switchText =
-      document.getElementById("switchText");
+switchText.textContent =
+"هەژمارت هەیە؟";
 
-    const switchButton =
-      document.getElementById("switchButton");
+switchButton.textContent =
+"چوونەژوورەوە";
 
+usernameBox.style.display =
+"block";
 
-    if (signupMode) {
+}else{
 
-      title.textContent =
-        "هەژمار دروست بکە";
+title.textContent =
+"بەخێربێیت";
 
-      subtitle.textContent =
-        "هەژمارێکی نوێ بۆ MAZYAR AI دروست بکە";
+desc.textContent =
+"بچۆ ژوورەوە بۆ MAZYAR AI";
 
-      usernameGroup.style.display =
-        "block";
+mainButton.textContent =
+"چوونەژوورەوە";
 
-      submitButton.textContent =
-        "دروستکردنی هەژمار";
+switchText.textContent =
+"هەژمارت نییە؟";
 
-      switchText.textContent =
-        "هەژمارت هەیە؟";
+switchButton.textContent =
+"هەژمار دروست بکە";
 
-      switchButton.textContent =
-        "چوونەژوورەوە";
+usernameBox.style.display =
+"block";
 
-    } else {
+}
 
-      title.textContent =
-        "بەخێربێیت";
-
-      subtitle.textContent =
-        "بچۆ ژوورەوە بۆ بەکارهێنانی MAZYAR AI";
-
-      usernameGroup.style.display =
-        "block";
-
-      submitButton.textContent =
-        "چوونەژوورەوە";
-
-      switchText.textContent =
-        "هەژمارت نییە؟";
-
-      switchButton.textContent =
-        "هەژمار دروست بکە";
-    }
-
-  }
+}
 
 
-  function togglePassword() {
+function showMessage(text){
 
-    const password =
-      document.getElementById("password");
+message.style.display="block";
 
-    password.type =
-      password.type === "password"
-        ? "text"
-        : "password";
+message.textContent=text;
 
-  }
+}
 
 
-  function submitForm() {
+function submitForm(){
 
-    const username =
-      document.getElementById("username").value.trim();
+const username =
+document.getElementById("username").value.trim();
 
-    const email =
-      document.getElementById("email").value.trim();
+const email =
+document.getElementById("email").value.trim();
 
-    const password =
-      document.getElementById("password").value.trim();
-
-    const error =
-      document.getElementById("error");
+const password =
+document.getElementById("password").value.trim();
 
 
-    if (!email || !password) {
+if(!email || !password){
 
-      error.style.display = "block";
+showMessage(
+"تکایە ئیمەیڵ و پاسوۆرد پڕبکەرەوە."
+);
 
-      error.textContent =
-        "تکایە ئیمەیڵ و پاسوۆرد پڕبکەرەوە.";
+return;
 
-      return;
-    }
-
-
-    if (signupMode && !username) {
-
-      error.style.display = "block";
-
-      error.textContent =
-        "تکایە ناوی بەکارهێنەر بنووسە.";
-
-      return;
-    }
+}
 
 
-    error.style.display = "none";
+if(signup && !username){
+
+showMessage(
+"تکایە ناوی بەکارهێنەر بنووسە."
+);
+
+return;
+
+}
 
 
-    alert(
-      signupMode
-        ? "هەژمارەکەت ئامادەیە! لە هەنگاوی دواتر login ـی ڕاستەقینە پێوە دەبەستین."
-        : "بەخێربێیت بۆ MAZYAR AI!"
-    );
+/*
+  ئەمە شوێنی Authentication ـی ڕاستەقینەیە.
 
-  }
+  لە هەنگاوی دواتر:
+  Supabase Auth
+  + Database
+  زیاد دەکەین.
+
+  Password نابێت لە localStorage
+  یان GitHub هەڵبگیرێت.
+*/
 
 
-  function googleLogin() {
+if(signup){
 
-    alert(
-      "Google Login لە هەنگاوی دواتر بە شێوەی ڕاستەقینە پێوە دەبەسترێت."
-    );
+showMessage(
+"هەموو زانیارییەکان ئامادەن. ئێستا پێویستە Authentication ـی ڕاستەقینە پێوە ببەستین."
+);
 
-  }
+}else{
+
+showMessage(
+"ئێستا پێویستە Login ـی ڕاستەقینە پێوە ببەستین."
+);
+
+}
+
+}
 
 </script>
 
