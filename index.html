@@ -75,10 +75,6 @@ padding:0 14px;
 outline:none;
 }
 
-input:focus{
-border-color:#ffffff70;
-}
-
 .primary{
 width:100%;
 height:50px;
@@ -235,23 +231,15 @@ cursor:pointer;
 }
 
 @media(max-width:600px){
-
 .card{padding:28px 20px}
-
 .messages{padding:15px 10px}
-
 .composer{padding:10px}
-
 .account span{display:none}
-
 }
 </style>
 </head>
 
 <body>
-
-
-<!-- LOGIN / SIGN UP -->
 
 <section id="auth" class="auth">
 
@@ -259,10 +247,9 @@ cursor:pointer;
 
 <div class="logo">MAZYAR</div>
 
-<div id="description" class="sub">
+<div class="sub">
 هاوڕێی زیرەکی دەستکردی کوردی 🤖
 </div>
-
 
 <div id="usernameBox" class="hidden">
 
@@ -271,11 +258,9 @@ cursor:pointer;
 <input
 id="username"
 type="text"
-placeholder="ناوی تۆ"
->
+placeholder="ناوی تۆ">
 
 </div>
-
 
 <label>ئیمەیڵ</label>
 
@@ -283,9 +268,7 @@ placeholder="ناوی تۆ"
 id="email"
 type="email"
 autocomplete="email"
-placeholder="example@gmail.com"
->
-
+placeholder="example@gmail.com">
 
 <label>پاسوۆرد</label>
 
@@ -293,9 +276,7 @@ placeholder="example@gmail.com"
 id="password"
 type="password"
 autocomplete="current-password"
-placeholder="••••••••"
->
-
+placeholder="••••••••">
 
 <button
 id="authBtn"
@@ -306,9 +287,7 @@ onclick="authUser()">
 
 </button>
 
-
 <div id="error" class="error"></div>
-
 
 <div class="switch">
 
@@ -329,13 +308,13 @@ onclick="authUser()">
 </section>
 
 
-<!-- AI -->
-
 <section id="chat" class="chat hidden">
 
 <header class="header">
 
-<div class="brand">MAZYAR AI</div>
+<div class="brand">
+MAZYAR AI
+</div>
 
 <div class="account">
 
@@ -404,10 +383,6 @@ from
 "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
 
-/* =====================
-   SUPABASE
-===================== */
-
 const SUPABASE_URL =
 "https://lwqdpovamqdmdqftewop.supabase.co";
 
@@ -420,10 +395,6 @@ SUPABASE_URL,
 SUPABASE_KEY
 );
 
-
-/* =====================
-   MODE
-===================== */
 
 let signUp=false;
 
@@ -461,10 +432,6 @@ signUp
 };
 
 
-/* =====================
-   ERROR
-===================== */
-
 function errorMessage(text){
 
 const el=
@@ -475,6 +442,7 @@ el.style.display="block";
 
 }
 
+
 function clearError(){
 
 document
@@ -483,10 +451,6 @@ document
 
 }
 
-
-/* =====================
-   LOGIN / SIGN UP
-===================== */
 
 window.authUser=async function(){
 
@@ -513,7 +477,6 @@ document
 if(!email){
 
 errorMessage("ئیمەیڵ بنووسە.");
-
 return;
 
 }
@@ -521,7 +484,6 @@ return;
 if(!password){
 
 errorMessage("پاسوۆرد بنووسە.");
-
 return;
 
 }
@@ -529,7 +491,6 @@ return;
 if(signUp && !username){
 
 errorMessage("ناوت بنووسە.");
-
 return;
 
 }
@@ -539,7 +500,6 @@ const btn=
 document.getElementById("authBtn");
 
 btn.disabled=true;
-
 btn.textContent="چاوەڕێ بکە...";
 
 
@@ -550,27 +510,19 @@ if(signUp){
 const result=
 await supabase.auth.signUp({
 
-email:email,
-
-password:password,
+email,
+password,
 
 options:{
 data:{
-username:username
+username
 }
 }
 
 });
 
-
 if(result.error)
 throw result.error;
-
-
-/*
-   ئەگەر Supabase session بدات
-   ڕاستەوخۆ دەچینە ناو AI
-*/
 
 if(result.data.session){
 
@@ -579,32 +531,27 @@ openAI(result.data.user);
 }else{
 
 errorMessage(
-"هەژمار دروست بوو. ئەگەر Email Confirmation چالاکە، ئیمەیڵەکەت پشتڕاست بکە."
+"هەژمار دروست بوو. تکایە ئیمەیڵەکەت پشتڕاست بکە."
 );
 
 }
 
 }else{
 
-
 const result=
 await supabase.auth.signInWithPassword({
 
-email:email,
-
-password:password
+email,
+password
 
 });
-
 
 if(result.error)
 throw result.error;
 
-
 openAI(result.data.user);
 
 }
-
 
 }catch(error){
 
@@ -628,10 +575,6 @@ signUp
 };
 
 
-/* =====================
-   OPEN AI
-===================== */
-
 function openAI(user){
 
 document
@@ -644,14 +587,12 @@ document
 .classList
 .remove("hidden");
 
-
 const name=
 user.user_metadata?.username
 ||
 user.email?.split("@")[0]
 ||
 "هاوڕێ";
-
 
 document
 .getElementById("userName")
@@ -661,10 +602,6 @@ name;
 }
 
 
-/* =====================
-   LOGOUT
-===================== */
-
 window.logout=async function(){
 
 await supabase.auth.signOut();
@@ -673,10 +610,6 @@ location.reload();
 
 };
 
-
-/* =====================
-   CHAT UI
-===================== */
 
 function addMessage(text,type){
 
@@ -708,7 +641,7 @@ return bubble;
 }
 
 
-window.sendMessage=function(){
+window.sendMessage=async function(){
 
 const input=
 document.getElementById("question");
@@ -732,23 +665,59 @@ addMessage(
 );
 
 
-setTimeout(()=>{
+try{
+
+const response=
+await fetch("/api/chat",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+message:text
+})
+
+});
+
+
+const data=
+await response.json();
+
+
+if(!response.ok){
+
+throw new Error(
+data.error ||
+"AI error"
+);
+
+}
+
 
 answer.textContent=
-"تێگەیشتم 👌\n\n"+
-"پرسیارەکەت: "+
-text+
-"\n\n"+
-"ئێستا UI و Login ـەکەمان کاردەکات. بۆ وەڵامی AI ـی ڕاستەقینە، پێویستە Backend + AI API زیاد بکەین.";
+data.answer;
 
-},700);
+}catch(error){
+
+console.error(error);
+
+answer.textContent=
+"ببورە، کێشەیەک لە پەیوەندی بە AI هەیە.";
+
+}
 
 };
 
 
 window.keyHandler=function(event){
 
-if(event.key==="Enter" && !event.shiftKey){
+if(
+event.key==="Enter" &&
+!event.shiftKey
+){
 
 event.preventDefault();
 
@@ -759,12 +728,9 @@ sendMessage();
 };
 
 
-/* =====================
-   KEEP USER LOGGED IN
-===================== */
-
 const sessionResult=
 await supabase.auth.getSession();
+
 
 if(sessionResult.data.session){
 
