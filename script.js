@@ -232,3 +232,4 @@ function showMessage(text) {
 }
 
 renderProducts();
+<script src="script.js"></script>
