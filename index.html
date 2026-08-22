@@ -3,7 +3,7 @@
 <html lang="ku" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MAZYAR AI</title>
 
 <style>
@@ -11,57 +11,188 @@
 
 body{
 margin:0;
-height:100vh;
+min-height:100vh;
 font-family:Arial,sans-serif;
-background:#0b0b0d;
+background:#09090b;
 color:white;
-display:flex;
-flex-direction:column;
 }
 
-header{
-height:70px;
+button,input,textarea{
+font-family:inherit;
+}
+
+.hidden{
+display:none!important;
+}
+
+/* LOGIN */
+
+.loginPage{
+min-height:100vh;
 display:flex;
 align-items:center;
-padding:0 25px;
+justify-content:center;
+padding:20px;
+background:
+linear-gradient(#0008,#000b),
+url("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2200&q=90")
+center/cover;
+}
+
+.loginBox{
+width:430px;
+max-width:100%;
+padding:40px;
+border-radius:25px;
+background:#111a;
+backdrop-filter:blur(25px);
+border:1px solid #ffffff18;
+box-shadow:0 30px 80px #000;
+}
+
+.logo{
+font-size:42px;
+font-weight:900;
+letter-spacing:4px;
+text-align:center;
+}
+
+.tag{
+text-align:center;
+color:#aaa;
+margin:10px 0 30px;
+}
+
+label{
+display:block;
+margin:14px 0 7px;
+color:#ccc;
+font-size:14px;
+}
+
+input{
+width:100%;
+height:50px;
+border-radius:12px;
+border:1px solid #ffffff18;
+background:#ffffff0b;
+color:white;
+outline:none;
+padding:0 15px;
+}
+
+input:focus{
+border-color:#ffffff70;
+}
+
+.primary{
+width:100%;
+height:50px;
+margin-top:20px;
+border:0;
+border-radius:12px;
+background:white;
+color:#111;
+font-weight:bold;
+cursor:pointer;
+}
+
+.primary:disabled{
+opacity:.5;
+}
+
+.switch{
+text-align:center;
+margin-top:20px;
+color:#888;
+}
+
+.switch button{
+border:0;
+background:none;
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
+
+.error{
+margin-top:15px;
+padding:10px;
+border-radius:10px;
+background:#ff000018;
+color:#ffb0b0;
+display:none;
+font-size:14px;
+}
+
+/* CHAT */
+
+.chatPage{
+height:100vh;
+display:flex;
+flex-direction:column;
+background:#0b0b0d;
+}
+
+.topbar{
+height:65px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 20px;
 border-bottom:1px solid #ffffff12;
 background:#111114;
 }
 
-.logo{
-font-size:25px;
+.brand{
+font-size:22px;
 font-weight:900;
 letter-spacing:3px;
 }
 
-.status{
-margin-right:15px;
-font-size:13px;
-color:#777;
+.userArea{
+display:flex;
+align-items:center;
+gap:12px;
 }
 
-.chat{
+.username{
+color:#aaa;
+font-size:14px;
+}
+
+.logout{
+border:1px solid #ffffff20;
+background:#ffffff08;
+color:white;
+border-radius:10px;
+padding:9px 14px;
+cursor:pointer;
+}
+
+.messages{
 flex:1;
 overflow-y:auto;
-padding:30px 15%;
+padding:25px;
 }
 
 .message{
 display:flex;
-margin:18px 0;
+margin:18px auto;
+max-width:900px;
 }
 
-.user{
+.message.user{
 justify-content:flex-start;
 }
 
-.ai{
+.message.ai{
 justify-content:flex-end;
 }
 
 .bubble{
 max-width:750px;
-padding:15px 18px;
+padding:14px 18px;
 border-radius:18px;
 line-height:1.8;
 white-space:pre-wrap;
@@ -73,178 +204,578 @@ background:#252529;
 
 .ai .bubble{
 background:#171719;
-border:1px solid #ffffff0d;
+border:1px solid #ffffff10;
 }
 
 .composer{
-padding:20px 15%;
-background:#0b0b0d;
+padding:15px 25px 25px;
 }
 
-.inputBox{
+.inputWrap{
+max-width:900px;
+margin:auto;
 display:flex;
 gap:10px;
-background:#1b1b1f;
-border:1px solid #ffffff15;
-border-radius:18px;
 padding:8px;
+border-radius:18px;
+background:#18181b;
+border:1px solid #ffffff12;
 }
 
 textarea{
 flex:1;
+height:50px;
 resize:none;
 border:0;
 outline:0;
 background:transparent;
 color:white;
-font-size:16px;
 padding:12px;
-height:50px;
-font-family:inherit;
+font-size:16px;
 }
 
-button{
+.send{
+width:90px;
 border:0;
 border-radius:13px;
 background:white;
-color:black;
+color:#111;
 font-weight:bold;
-padding:0 20px;
 cursor:pointer;
 }
 
-button:disabled{
-opacity:.4;
+@media(max-width:600px){
+
+.loginBox{
+padding:28px 20px;
 }
 
-@media(max-width:700px){
-.chat,.composer{
-padding-left:12px;
-padding-right:12px;
+.messages{
+padding:15px 10px;
 }
+
+.composer{
+padding:10px;
+}
+
+.username{
+display:none;
+}
+
 }
 </style>
 </head>
 
 <body>
 
-<header>
-<div class="logo">MAZYAR</div>
-<div class="status">AI Assistant</div>
-</header>
 
-<main class="chat" id="chat">
+<!-- LOGIN -->
 
-<div class="message ai">
-<div class="bubble">
-سڵاو 👋 من MAZYAR ـم.
-چۆن دەتوانم یارمەتیت بدەم؟
-</div>
+<section id="loginPage" class="loginPage">
+
+<div class="loginBox">
+
+<div class="logo">
+MAZYAR
 </div>
 
-</main>
+<div class="tag" id="authDescription">
+هاوڕێی زیرەکی دەستکردی کوردی 🤖
+</div>
 
-<div class="composer">
 
-<div class="inputBox">
+<div id="signupFields" class="hidden">
 
-<textarea
-id="input"
-placeholder="پرسیارێکت بنووسە..."
-onkeydown="handleKey(event)"
-></textarea>
+<label>
+ناوی بەکارهێنەر
+</label>
+
+<input
+id="usernameInput"
+type="text"
+placeholder="ناوی تۆ"
+>
+
+</div>
+
+
+<label>
+ئیمەیڵ
+</label>
+
+<input
+id="emailInput"
+type="email"
+placeholder="example@email.com"
+>
+
+
+<label>
+پاسوۆرد
+</label>
+
+<input
+id="passwordInput"
+type="password"
+placeholder="••••••••"
+>
+
 
 <button
-id="send"
-onclick="sendMessage()"
->
-ناردن
+id="authButton"
+class="primary"
+onclick="authenticate()">
+
+چوونەژوورەوە
+
+</button>
+
+
+<div id="error" class="error"></div>
+
+
+<div class="switch">
+
+<span id="switchLabel">
+هەژمارت نییە؟
+</span>
+
+<button onclick="toggleAuth()">
+<span id="switchButton">
+هەژمار دروست بکە
+</span>
 </button>
 
 </div>
 
 </div>
 
-
-<script>
-
-const input =
-document.getElementById("input");
-
-const chat =
-document.getElementById("chat");
-
-const send =
-document.getElementById("send");
+</section>
 
 
-function addMessage(text,type){
+<!-- CHAT -->
 
-const row =
-document.createElement("div");
+<section id="chatPage" class="chatPage hidden">
 
-row.className =
-"message " + type;
+<header class="topbar">
 
-const bubble =
-document.createElement("div");
+<div class="brand">
+MAZYAR
+</div>
 
-bubble.className =
-"bubble";
+<div class="userArea">
 
-bubble.textContent =
-text;
+<div id="currentUsername" class="username"></div>
 
-row.appendChild(bubble);
+<button
+class="logout"
+onclick="logout()">
 
-chat.appendChild(row);
+دەرچوون
 
-chat.scrollTop =
-chat.scrollHeight;
+</button>
+
+</div>
+
+</header>
+
+
+<main
+id="messages"
+class="messages">
+
+<div class="message ai">
+
+<div class="bubble">
+سڵاو 👋 من MAZYAR ـم.
+<br>
+بەخێربێیت! چیت دەوێت بزانیت؟
+</div>
+
+</div>
+
+</main>
+
+
+<footer class="composer">
+
+<div class="inputWrap">
+
+<textarea
+id="messageInput"
+placeholder="پرسیارێکت بنووسە..."
+onkeydown="handleKey(event)"
+></textarea>
+
+<button
+id="sendButton"
+class="send"
+onclick="sendMessage()">
+
+ناردن
+
+</button>
+
+</div>
+
+</footer>
+
+</section>
+
+
+<script type="module">
+
+import {
+createClient
+}
+from
+"https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
+
+/* ==========================
+   SUPABASE
+========================== */
+
+const SUPABASE_URL =
+"https://lwqdpovamqdmdqftewop.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_KRRdhD9dmvwzHZwsmBXbhA_ACxwSR2T";
+
+const supabase =
+createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+
+
+/* ==========================
+   AUTH MODE
+========================== */
+
+let signupMode=false;
+
+
+window.toggleAuth=function(){
+
+signupMode=!signupMode;
+
+document
+.getElementById("signupFields")
+.classList
+.toggle("hidden",!signupMode);
+
+document
+.getElementById("authButton")
+.textContent=
+signupMode
+?"دروستکردنی هەژمار"
+:"چوونەژوورەوە";
+
+document
+.getElementById("switchLabel")
+.textContent=
+signupMode
+?"هەژمارت هەیە؟"
+:"هەژمارت نییە؟";
+
+document
+.getElementById("switchButton")
+.textContent=
+signupMode
+?"چوونەژوورەوە"
+:"هەژمار دروست بکە";
+
+};
+
+
+/* ==========================
+   MESSAGE
+========================== */
+
+function showError(text){
+
+const box=
+document.getElementById("error");
+
+box.textContent=text;
+box.style.display="block";
 
 }
 
 
-async function sendMessage(){
+function hideError(){
 
-const text =
+document
+.getElementById("error")
+.style.display="none";
+
+}
+
+
+/* ==========================
+   AUTHENTICATE
+========================== */
+
+window.authenticate=async function(){
+
+hideError();
+
+const email=
+document
+.getElementById("emailInput")
+.value
+.trim();
+
+const password=
+document
+.getElementById("passwordInput")
+.value;
+
+const username=
+document
+.getElementById("usernameInput")
+.value
+.trim();
+
+
+if(!email || !password){
+
+showError(
+"تکایە ئیمەیڵ و پاسوۆرد پڕبکەرەوە."
+);
+
+return;
+
+}
+
+
+if(signupMode && !username){
+
+showError(
+"تکایە ناوی بەکارهێنەر بنووسە."
+);
+
+return;
+
+}
+
+
+const button=
+document.getElementById("authButton");
+
+button.disabled=true;
+button.textContent="چاوەڕێ بکە...";
+
+
+try{
+
+
+if(signupMode){
+
+const {
+data,
+error
+}=
+await supabase.auth.signUp({
+
+email,
+password,
+
+options:{
+data:{
+username
+}
+}
+
+});
+
+
+if(error)
+throw error;
+
+
+if(data.session){
+
+openChat(data.user);
+
+}else{
+
+showError(
+"هەژمارەکەت دروست بوو. ئیمەیڵەکەت بپشکنە بۆ پشتڕاستکردنەوە."
+);
+
+}
+
+}else{
+
+
+const {
+data,
+error
+}=
+await supabase.auth.signInWithPassword({
+
+email,
+password
+
+});
+
+
+if(error)
+throw error;
+
+
+openChat(data.user);
+
+}
+
+
+}catch(error){
+
+showError(
+error.message
+);
+
+}
+
+
+button.disabled=false;
+
+button.textContent=
+signupMode
+?"دروستکردنی هەژمار"
+:"چوونەژوورەوە";
+
+};
+
+
+/* ==========================
+   OPEN CHAT
+========================== */
+
+function openChat(user){
+
+document
+.getElementById("loginPage")
+.classList
+.add("hidden");
+
+document
+.getElementById("chatPage")
+.classList
+.remove("hidden");
+
+
+const username=
+user.user_metadata?.username
+||
+user.email?.split("@")[0]
+||
+"هاوڕێ";
+
+
+document
+.getElementById("currentUsername")
+.textContent=
+username;
+
+}
+
+
+/* ==========================
+   LOGOUT
+========================== */
+
+window.logout=async function(){
+
+await supabase.auth.signOut();
+
+document
+.getElementById("chatPage")
+.classList
+.add("hidden");
+
+document
+.getElementById("loginPage")
+.classList
+.remove("hidden");
+
+};
+
+
+/* ==========================
+   CHAT
+========================== */
+
+function addMessage(text,type){
+
+const row=
+document.createElement("div");
+
+row.className=
+"message "+type;
+
+const bubble=
+document.createElement("div");
+
+bubble.className="bubble";
+
+bubble.textContent=text;
+
+row.appendChild(bubble);
+
+document
+.getElementById("messages")
+.appendChild(row);
+
+const messages=
+document.getElementById("messages");
+
+messages.scrollTop=
+messages.scrollHeight;
+
+return bubble;
+
+}
+
+
+window.sendMessage=function(){
+
+const input=
+document.getElementById("messageInput");
+
+const text=
 input.value.trim();
 
 if(!text)
 return;
 
+
 addMessage(text,"user");
 
 input.value="";
 
-send.disabled=true;
 
+const aiBubble=
 addMessage(
 "MAZYAR خەریکی بیرکردنەوەیە... 🤖",
 "ai"
 );
 
 
-/*
-  لێرە API ـی AI دادەنرێت.
-*/
-
 setTimeout(()=>{
 
-const messages =
-document.querySelectorAll(".ai .bubble");
+aiBubble.textContent=
+"تێگەیشتم: "+text+
+"\n\nئەمە تەنها وەشانی بنەڕەتی MAZYAR ـە. بۆ ئەوەی بە ڕاستی وەک ChatGPT وەڵام بدات، پێویستە AI API لە پشتەوە پێوە ببەسترێت.";
 
-messages[messages.length-1].textContent =
-"ئەمە تاقیکردنەوەی MAZYAR ـە. بۆ وەڵامی AI ـی ڕاستەقینە، API ـی مۆدێلی AI پێوە دەبەسترێت.";
+},700);
 
-send.disabled=false;
-
-},1000);
-
-}
+};
 
 
-function handleKey(event){
+window.handleKey=function(event){
 
 if(event.key==="Enter" && !event.shiftKey){
 
@@ -253,6 +784,25 @@ event.preventDefault();
 sendMessage();
 
 }
+
+};
+
+
+/* ==========================
+   AUTO LOGIN
+========================== */
+
+const {
+data:{
+session
+}
+}=
+await supabase.auth.getSession();
+
+
+if(session){
+
+openChat(session.user);
 
 }
 
