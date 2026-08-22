@@ -1,0 +1,109 @@
+<div class="app">
+
+  <header class="navbar">
+    <div class="logo">MAZYAR<span>.</span></div>
+
+    <div class="search">
+      <span>⌕</span>
+      <input id="searchInput" type="text" placeholder="گەڕان بەدوای کاڵا...">
+    </div>
+
+    <div class="nav-actions">
+      <button class="icon-btn" onclick="showFavorites()">♡</button>
+      <button class="cart-btn" onclick="openCart()">
+        🛒 <b id="cartCount">0</b>
+      </button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-text">
+      <p class="small-title">بەخێربێیت بۆ</p>
+      <h1>MAZYAR</h1>
+      <p>
+        بازاڕێکی مۆدێرن بۆ کڕین و فرۆشتنی هەموو جۆرە کاڵاکان.
+      </p>
+
+      <button class="main-btn" onclick="scrollToProducts()">
+        ئێستا دەست پێبکە →
+      </button>
+    </div>
+
+    <div class="hero-card">
+      <div class="circle"></div>
+      <div class="hero-product">🛍️</div>
+      <div class="floating-box">NEW</div>
+    </div>
+  </section>
+
+  <section class="categories">
+    <button class="category active"
+      onclick="filterProducts('all', this)">
+      هەموو
+    </button>
+
+    <button class="category"
+      onclick="filterProducts('phone', this)">
+      📱 مۆبایل
+    </button>
+
+    <button class="category"
+      onclick="filterProducts('fashion', this)">
+      👕 جلوبەرگ
+    </button>
+
+    <button class="category"
+      onclick="filterProducts('tech', this)">
+      💻 تەکنەلۆجیا
+    </button>
+
+    <button class="category"
+      onclick="filterProducts('home', this)">
+      🏠 ماڵ
+    </button>
+  </section>
+
+  <main id="productsSection">
+
+    <div class="section-title">
+      <div>
+        <p>باشترین هەڵبژاردە</p>
+        <h2>کاڵاکانی ئێمە</h2>
+      </div>
+
+      <span id="productNumber">8 کاڵا</span>
+    </div>
+
+    <div id="products" class="products"></div>
+
+  </main>
+
+  <div id="cartModal" class="modal">
+
+    <div class="modal-box">
+
+      <button class="close" onclick="closeCart()">×</button>
+
+      <h2>🛒 سەبەتەکەت</h2>
+
+      <div id="cartItems"></div>
+
+      <div class="total">
+        <span>کۆی گشتی</span>
+        <strong id="cartTotal">$0</strong>
+      </div>
+
+      <button class="checkout" onclick="checkout()">
+        کڕین تەواو بکە
+      </button>
+
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="logo">MAZYAR<span>.</span></div>
+    <p>© 2026 MAZYAR — هەموو مافەکان پارێزراون.</p>
+  </footer>
+
+</div>
