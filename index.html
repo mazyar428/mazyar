@@ -1,49 +1,345 @@
 ```html
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ku">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MAZYAR Store</title>
-  <link rel="stylesheet" href="style.css">
+
+  <title>MAZYAR AI</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: white;
+      min-height: 100vh;
+      background:
+        linear-gradient(#0008, #000b),
+        url("https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=2000&q=85")
+        center/cover fixed;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      height: 70px;
+      padding: 0 6%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #0006;
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid #ffffff20;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 900;
+      letter-spacing: 2px;
+    }
+
+    .login {
+      border: 1px solid #ffffff40;
+      background: #ffffff15;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+
+    main {
+      flex: 1;
+      width: min(900px, 92%);
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 40px 0;
+    }
+
+    .welcome {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .welcome h1 {
+      font-size: clamp(42px, 8vw, 80px);
+      margin: 0;
+      letter-spacing: 3px;
+    }
+
+    .welcome p {
+      color: #ddd;
+      font-size: 18px;
+    }
+
+    .chat {
+      height: 430px;
+      overflow-y: auto;
+      padding: 20px;
+      border-radius: 25px;
+      background: #0007;
+      backdrop-filter: blur(18px);
+      border: 1px solid #ffffff20;
+    }
+
+    .message {
+      max-width: 80%;
+      padding: 14px 17px;
+      margin: 12px 0;
+      border-radius: 18px;
+      line-height: 1.6;
+    }
+
+    .ai {
+      background: #ffffff15;
+      margin-right: auto;
+    }
+
+    .user {
+      background: #ffffff25;
+      margin-left: auto;
+    }
+
+    .controls {
+      margin-top: 18px;
+      display: flex;
+      gap: 10px;
+      background: #0008;
+      padding: 10px;
+      border-radius: 18px;
+      backdrop-filter: blur(15px);
+    }
+
+    #input {
+      flex: 1;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      color: white;
+      padding: 13px;
+      font-size: 16px;
+    }
+
+    #input::placeholder {
+      color: #bbb;
+    }
+
+    .btn {
+      width: 48px;
+      height: 48px;
+      border: 0;
+      border-radius: 14px;
+      background: white;
+      color: black;
+      cursor: pointer;
+      font-size: 19px;
+    }
+
+    .voice.active {
+      background: #ff4444;
+      color: white;
+    }
+
+    footer {
+      text-align: center;
+      padding: 18px;
+      color: #aaa;
+      font-size: 13px;
+    }
+
+    @media (max-width: 600px) {
+      .chat {
+        height: 50vh;
+      }
+
+      .message {
+        max-width: 90%;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<header>
-  <div class="logo">MAZYAR</div>
-  <input id="search" type="search" placeholder="Search products...">
-  <button onclick="openCart()">🛒 Cart <span id="cartCount">0</span></button>
-</header>
+<div class="page">
 
-<section class="hero">
-  <h1>MAZYAR STORE</h1>
-  <p>Quality products. Simple shopping.</p>
-</section>
+  <header>
+    <div class="logo">MAZYAR AI</div>
+    <button class="login" onclick="login()">
+      Login
+    </button>
+  </header>
 
-<main>
-  <h2>Products</h2>
-  <div id="products" class="products"></div>
-</main>
+  <main>
 
-<div id="cartModal" class="modal">
-  <div class="cart">
-    <button class="close" onclick="closeCart()">✕</button>
-    <h2>Your Cart</h2>
+    <section class="welcome">
+      <h1>MAZYAR</h1>
+      <p>هاوڕێی زیرەکی دەستکردی کوردی 🤖</p>
+    </section>
 
-    <div id="cartItems"></div>
+    <section class="chat" id="chat">
 
-    <div class="total">
-      Total: $<span id="total">0.00</span>
+      <div class="message ai">
+        سڵاو 👋 من MAZYAR ـم.
+        <br>
+        چۆنی؟ چیت پێویستە؟
+        <br>
+        دەتوانیت بنووسیت یان بە دەنگ قسەم لەگەڵ بکەیت 🎙️
+      </div>
+
+    </section>
+
+    <div class="controls">
+
+      <input
+        id="input"
+        placeholder="لەگەڵ MAZYAR قسە بکە..."
+        onkeydown="if(event.key==='Enter') sendMessage()"
+      >
+
+      <button class="btn voice" id="voiceBtn" onclick="startVoice()">
+        🎙️
+      </button>
+
+      <button class="btn" onclick="sendMessage()">
+        ➤
+      </button>
+
     </div>
 
-    <button class="checkout" onclick="checkout()">
-      Checkout
-    </button>
-  </div>
+  </main>
+
+  <footer>
+    MAZYAR AI © 2026
+  </footer>
+
 </div>
 
-<script src="script.js"></script>
+<script>
+
+const input = document.getElementById("input");
+const chat = document.getElementById("chat");
+const voiceBtn = document.getElementById("voiceBtn");
+
+function addMessage(text, type) {
+
+  const div = document.createElement("div");
+
+  div.className = "message " + type;
+
+  div.textContent = text;
+
+  chat.appendChild(div);
+
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function sendMessage() {
+
+  const text = input.value.trim();
+
+  if (!text) return;
+
+  addMessage(text, "user");
+
+  input.value = "";
+
+  setTimeout(() => {
+
+    addMessage(
+      "بەڵێ مازیار ❤️ پرسیارەکەت وەرگرت. لە وەشانی داهاتوودا AI ـی ڕاستەقینە و web search ـیش پێوە دەبەستین.",
+      "ai"
+    );
+
+    speak(
+      "بەڵێ مازیار. پرسیارەکەت وەرگرت."
+    );
+
+  }, 500);
+}
+
+function speak(text) {
+
+  if (!("speechSynthesis" in window)) return;
+
+  const voice = new SpeechSynthesisUtterance(text);
+
+  voice.lang = "ku";
+
+  voice.rate = 0.95;
+
+  window.speechSynthesis.cancel();
+
+  window.speechSynthesis.speak(voice);
+}
+
+function startVoice() {
+
+  const SpeechRecognition =
+    window.SpeechRecognition ||
+    window.webkitSpeechRecognition;
+
+  if (!SpeechRecognition) {
+
+    alert(
+      "Browser ـەکەت voice recognition پشتگیری ناکات."
+    );
+
+    return;
+  }
+
+  const recognition = new SpeechRecognition();
+
+  recognition.lang = "ku-IQ";
+
+  recognition.interimResults = false;
+
+  voiceBtn.classList.add("active");
+
+  recognition.start();
+
+  recognition.onresult = function(event) {
+
+    const text =
+      event.results[0][0].transcript;
+
+    input.value = text;
+
+    sendMessage();
+  };
+
+  recognition.onerror = function() {
+
+    voiceBtn.classList.remove("active");
+
+  };
+
+  recognition.onend = function() {
+
+    voiceBtn.classList.remove("active");
+
+  };
+}
+
+function login() {
+
+  alert(
+    "Google Login ـی ڕاستەقینە لە هەنگاوی دواتر زیاد دەکرێت."
+  );
+
+}
+
+</script>
+
 </body>
 </html>
 ```
