@@ -3,7 +3,7 @@
 <html lang="ku" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>MAZYAR AI</title>
 
 <style>
@@ -11,671 +11,248 @@
 
 body{
 margin:0;
-min-height:100vh;
+height:100vh;
 font-family:Arial,sans-serif;
+background:#0b0b0d;
 color:white;
-background:
-linear-gradient(135deg,#000b,#0005,#000c),
-url("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2200&q=90")
-center/cover fixed;
-}
-
-.page{
-min-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-padding:20px;
-}
-
-.box{
-width:min(1050px,100%);
-min-height:620px;
-display:grid;
-grid-template-columns:1fr 430px;
-overflow:hidden;
-border-radius:30px;
-background:#0009;
-backdrop-filter:blur(25px);
-border:1px solid #ffffff20;
-box-shadow:0 30px 80px #0009;
-}
-
-.info{
-padding:70px;
 display:flex;
 flex-direction:column;
-justify-content:center;
+}
+
+header{
+height:70px;
+display:flex;
+align-items:center;
+padding:0 25px;
+border-bottom:1px solid #ffffff12;
+background:#111114;
 }
 
 .logo{
-font-size:58px;
+font-size:25px;
 font-weight:900;
-letter-spacing:5px;
+letter-spacing:3px;
 }
 
-.subtitle{
-margin-top:15px;
-color:#ddd;
-font-size:23px;
-line-height:1.8;
+.status{
+margin-right:15px;
+font-size:13px;
+color:#777;
 }
 
-.features{
-margin-top:35px;
-display:grid;
-gap:16px;
-}
-
-.feature{
-color:#ddd;
-font-size:16px;
-}
-
-.login{
-padding:45px 35px;
-background:#0007;
-display:flex;
-flex-direction:column;
-justify-content:center;
-}
-
-h2{
-margin:0;
-font-size:30px;
-}
-
-.desc{
-color:#999;
-margin:10px 0 28px;
-}
-
-label{
-display:block;
-margin:12px 0 7px;
-color:#ddd;
-font-size:14px;
-}
-
-input{
-width:100%;
-height:52px;
-padding:0 15px;
-border-radius:13px;
-border:1px solid #ffffff20;
-outline:none;
-background:#ffffff0d;
-color:white;
-font-size:15px;
-}
-
-input:focus{
-border-color:#ffffff70;
-}
-
-.main{
-width:100%;
-height:53px;
-margin-top:22px;
-border:0;
-border-radius:14px;
-background:white;
-color:#111;
-font-size:16px;
-font-weight:bold;
-cursor:pointer;
-}
-
-.main:disabled{
-opacity:.5;
-cursor:not-allowed;
-}
-
-.switch{
-text-align:center;
-margin-top:22px;
-color:#888;
-}
-
-.switch button{
-border:0;
-background:none;
-color:white;
-font-weight:bold;
-cursor:pointer;
+.chat{
+flex:1;
+overflow-y:auto;
+padding:30px 15%;
 }
 
 .message{
-display:none;
-padding:11px;
-margin-bottom:10px;
-border-radius:10px;
-background:#ffffff10;
-color:#ddd;
-font-size:13px;
+display:flex;
+margin:18px 0;
 }
 
-.dashboard{
-text-align:center;
+.user{
+justify-content:flex-start;
 }
 
-.logout{
-margin-top:25px;
-padding:12px 25px;
+.ai{
+justify-content:flex-end;
+}
+
+.bubble{
+max-width:750px;
+padding:15px 18px;
+border-radius:18px;
+line-height:1.8;
+white-space:pre-wrap;
+}
+
+.user .bubble{
+background:#252529;
+}
+
+.ai .bubble{
+background:#171719;
+border:1px solid #ffffff0d;
+}
+
+.composer{
+padding:20px 15%;
+background:#0b0b0d;
+}
+
+.inputBox{
+display:flex;
+gap:10px;
+background:#1b1b1f;
+border:1px solid #ffffff15;
+border-radius:18px;
+padding:8px;
+}
+
+textarea{
+flex:1;
+resize:none;
 border:0;
-border-radius:12px;
+outline:0;
+background:transparent;
+color:white;
+font-size:16px;
+padding:12px;
+height:50px;
+font-family:inherit;
+}
+
+button{
+border:0;
+border-radius:13px;
+background:white;
+color:black;
+font-weight:bold;
+padding:0 20px;
 cursor:pointer;
 }
 
-@media(max-width:800px){
-
-.box{
-grid-template-columns:1fr;
+button:disabled{
+opacity:.4;
 }
 
-.info{
-padding:40px 25px;
-text-align:center;
+@media(max-width:700px){
+.chat,.composer{
+padding-left:12px;
+padding-right:12px;
 }
-
-.logo{
-font-size:42px;
-}
-
-.subtitle{
-font-size:18px;
-}
-
-.login{
-padding:35px 25px;
-}
-
 }
 </style>
 </head>
 
 <body>
 
-<div class="page">
+<header>
+<div class="logo">MAZYAR</div>
+<div class="status">AI Assistant</div>
+</header>
 
-<div class="box">
+<main class="chat" id="chat">
 
-<section class="info">
-
-<div class="logo">
-MAZYAR
+<div class="message ai">
+<div class="bubble">
+سڵاو 👋 من MAZYAR ـم.
+چۆن دەتوانم یارمەتیت بدەم؟
+</div>
 </div>
 
-<div class="subtitle">
-هاوڕێی زیرەکی دەستکردی کوردی 🤖
-<br>
-هەمیشە لەگەڵتە.
-</div>
+</main>
 
-<div class="features">
+<div class="composer">
 
-<div class="feature">
-🎙️ قسەکردن بە دەنگ
-</div>
+<div class="inputBox">
 
-<div class="feature">
-🧠 زیرەکی دەستکرد
-</div>
-
-<div class="feature">
-🌐 گەڕان و زانیاری
-</div>
-
-<div class="feature">
-❤️ وەک هاوڕێ لەگەڵت
-</div>
-
-</div>
-
-</section>
-
-
-<section class="login" id="app">
-
-<h2 id="title">
-بەخێربێیت
-</h2>
-
-<div class="desc" id="desc">
-بچۆ ژوورەوە بۆ MAZYAR AI
-</div>
-
-<div class="message" id="message"></div>
-
-
-<div id="usernameBox">
-
-<label>
-ناوی بەکارهێنەر
-</label>
-
-<input
-id="username"
-type="text"
-placeholder="ناوی تۆ"
->
-
-</div>
-
-
-<label>
-ئیمەیڵ
-</label>
-
-<input
-id="email"
-type="email"
-placeholder="example@email.com"
->
-
-
-<label>
-پاسوۆرد
-</label>
-
-<input
-id="password"
-type="password"
-placeholder="••••••••"
->
-
+<textarea
+id="input"
+placeholder="پرسیارێکت بنووسە..."
+onkeydown="handleKey(event)"
+></textarea>
 
 <button
-class="main"
-id="mainButton"
-onclick="submitForm()">
-
-چوونەژوورەوە
-
-</button>
-
-
-<div class="switch">
-
-<span id="switchText">
-هەژمارت نییە؟
-</span>
-
-<button
-id="switchButton"
-onclick="changeMode()">
-
-هەژمار دروست بکە
-
+id="send"
+onclick="sendMessage()"
+>
+ناردن
 </button>
 
 </div>
 
-</section>
-
-</div>
-
 </div>
 
 
-<script type="module">
+<script>
 
-import {
-createClient
-}
-from
-"https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+const input =
+document.getElementById("input");
 
+const chat =
+document.getElementById("chat");
 
-/* =========================
-   SUPABASE
-========================= */
-
-const SUPABASE_URL =
-"https://lwqdpovamqdmdqftewop.supabase.co";
-
-const SUPABASE_KEY =
-"sb_publishable_KRRdhD9dmvwzHZwsmBXbhA_ACxwSR2T";
+const send =
+document.getElementById("send");
 
 
-const supabase =
-createClient(
-SUPABASE_URL,
-SUPABASE_KEY
-);
+function addMessage(text,type){
 
+const row =
+document.createElement("div");
 
-/* =========================
-   MODE
-========================= */
+row.className =
+"message " + type;
 
-let signup = false;
+const bubble =
+document.createElement("div");
 
+bubble.className =
+"bubble";
 
-const title =
-document.getElementById("title");
+bubble.textContent =
+text;
 
-const desc =
-document.getElementById("desc");
+row.appendChild(bubble);
 
-const usernameBox =
-document.getElementById("usernameBox");
+chat.appendChild(row);
 
-const mainButton =
-document.getElementById("mainButton");
-
-const switchText =
-document.getElementById("switchText");
-
-const switchButton =
-document.getElementById("switchButton");
-
-const message =
-document.getElementById("message");
-
-
-function showMessage(text){
-
-message.style.display="block";
-message.textContent=text;
+chat.scrollTop =
+chat.scrollHeight;
 
 }
 
 
-function changeMode(){
+async function sendMessage(){
 
-signup=!signup;
+const text =
+input.value.trim();
 
-
-if(signup){
-
-title.textContent =
-"هەژمار دروست بکە";
-
-desc.textContent =
-"هەژمارێکی نوێ بۆ MAZYAR AI دروست بکە";
-
-mainButton.textContent =
-"دروستکردنی هەژمار";
-
-switchText.textContent =
-"هەژمارت هەیە؟";
-
-switchButton.textContent =
-"چوونەژوورەوە";
-
-}else{
-
-title.textContent =
-"بەخێربێیت";
-
-desc.textContent =
-"بچۆ ژوورەوە بۆ MAZYAR AI";
-
-mainButton.textContent =
-"چوونەژوورەوە";
-
-switchText.textContent =
-"هەژمارت نییە؟";
-
-switchButton.textContent =
-"هەژمار دروست بکە";
-
-}
-
-}
-
-
-/* =========================
-   SIGN UP / LOGIN
-========================= */
-
-window.submitForm =
-async function(){
-
-const username =
-document
-.getElementById("username")
-.value
-.trim();
-
-const email =
-document
-.getElementById("email")
-.value
-.trim();
-
-const password =
-document
-.getElementById("password")
-.value;
-
-
-if(!email || !password){
-
-showMessage(
-"تکایە ئیمەیڵ و پاسوۆرد پڕبکەرەوە."
-);
-
+if(!text)
 return;
 
-}
+addMessage(text,"user");
 
+input.value="";
 
-if(signup && !username){
+send.disabled=true;
 
-showMessage(
-"تکایە ناوی بەکارهێنەر بنووسە."
+addMessage(
+"MAZYAR خەریکی بیرکردنەوەیە... 🤖",
+"ai"
 );
 
-return;
+
+/*
+  لێرە API ـی AI دادەنرێت.
+*/
+
+setTimeout(()=>{
+
+const messages =
+document.querySelectorAll(".ai .bubble");
+
+messages[messages.length-1].textContent =
+"ئەمە تاقیکردنەوەی MAZYAR ـە. بۆ وەڵامی AI ـی ڕاستەقینە، API ـی مۆدێلی AI پێوە دەبەسترێت.";
+
+send.disabled=false;
+
+},1000);
 
 }
 
 
-mainButton.disabled=true;
+function handleKey(event){
 
-mainButton.textContent =
-"چاوەڕێ بکە...";
+if(event.key==="Enter" && !event.shiftKey){
 
+event.preventDefault();
 
-try{
-
-
-/* SIGN UP */
-
-if(signup){
-
-const {
-data,
-error
-} =
-await supabase.auth.signUp({
-
-email:email,
-
-password:password,
-
-options:{
-data:{
-username:username
-}
-}
-
-});
-
-
-if(error)
-throw error;
-
-
-if(data.session){
-
-showDashboard(data.user);
-
-}else{
-
-showMessage(
-"هەژمارەکەت دروست بوو 🎉 ئێستا ئیمەیڵەکەت بپشکنە بۆ پشتڕاستکردنەوە."
-);
+sendMessage();
 
 }
-
-
-}
-
-
-/* LOGIN */
-
-else{
-
-const {
-data,
-error
-} =
-await supabase.auth.signInWithPassword({
-
-email:email,
-
-password:password
-
-});
-
-
-if(error)
-throw error;
-
-
-showDashboard(data.user);
-
-}
-
-
-}catch(error){
-
-showMessage(
-error.message
-);
-
-}
-
-
-mainButton.disabled=false;
-
-mainButton.textContent =
-signup
-?
-"دروستکردنی هەژمار"
-:
-"چوونەژوورەوە";
-
-};
-
-
-/* =========================
-   DASHBOARD
-========================= */
-
-function showDashboard(user){
-
-const username =
-user.user_metadata?.username
-||
-"هاوڕێ";
-
-
-document.getElementById("app").innerHTML = `
-
-<div class="dashboard">
-
-<h2>
-سڵاو ${escapeHTML(username)} 👋
-</h2>
-
-<div class="desc">
-
-بەخێربێیت بۆ MAZYAR AI
-
-<br><br>
-
-هەژمارەکەت بە سەرکەوتوویی چووە ژوورەوە.
-
-</div>
-
-<button
-class="logout"
-id="logoutButton">
-
-چوونەدەرەوە
-
-</button>
-
-</div>
-
-`;
-
-
-document
-.getElementById("logoutButton")
-.addEventListener(
-"click",
-logout
-);
-
-}
-
-
-/* =========================
-   LOGOUT
-========================= */
-
-async function logout(){
-
-await supabase.auth.signOut();
-
-location.reload();
-
-}
-
-
-/* =========================
-   SECURITY
-========================= */
-
-function escapeHTML(text){
-
-return String(text)
-
-.replaceAll("&","&amp;")
-
-.replaceAll("<","&lt;")
-
-.replaceAll(">","&gt;")
-
-.replaceAll('"',"&quot;")
-
-.replaceAll("'","&#039;");
-
-}
-
-
-/* =========================
-   EXISTING LOGIN
-========================= */
-
-const {
-data:{
-session
-}
-} =
-await supabase.auth.getSession();
-
-
-if(session){
-
-showDashboard(
-session.user
-);
 
 }
 
