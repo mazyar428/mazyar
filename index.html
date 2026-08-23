@@ -10,252 +10,250 @@
 *{box-sizing:border-box}
 
 body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#08080a;
-color:#fff;
-height:100vh;
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#08080a;
+  color:#fff;
+  height:100vh;
 }
 
 .hidden{display:none!important}
 
 .auth{
-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-padding:20px;
-background:
-linear-gradient(#0009,#0009),
-url("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2200&q=90")
-center/cover;
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:#08080a;
 }
 
 .card{
-width:420px;
-padding:40px;
-border-radius:25px;
-background:#111a;
-backdrop-filter:blur(25px);
-border:1px solid #ffffff18;
+  width:420px;
+  padding:40px;
+  border-radius:25px;
+  background:#111;
+  border:1px solid #ffffff18;
+  box-shadow:0 20px 80px #000;
 }
 
 .logo{
-text-align:center;
-font-size:44px;
-font-weight:900;
-letter-spacing:4px;
+  text-align:center;
+  font-size:44px;
+  font-weight:900;
+  letter-spacing:4px;
 }
 
 .sub{
-text-align:center;
-color:#aaa;
-margin:10px 0 30px;
+  text-align:center;
+  color:#aaa;
+  margin:10px 0 30px;
 }
 
 label{
-display:block;
-font-size:14px;
-color:#ccc;
-margin:13px 0 7px;
+  display:block;
+  font-size:14px;
+  color:#ccc;
+  margin:13px 0 7px;
 }
 
 input{
-width:100%;
-height:50px;
-border:1px solid #ffffff18;
-border-radius:12px;
-background:#ffffff0b;
-color:#fff;
-padding:0 14px;
-outline:none;
+  width:100%;
+  height:50px;
+  border:1px solid #ffffff18;
+  border-radius:12px;
+  background:#ffffff08;
+  color:#fff;
+  padding:0 14px;
+  outline:none;
 }
 
 .primary,
 .google-btn{
-width:100%;
-height:50px;
-border-radius:12px;
-font-weight:bold;
-cursor:pointer;
+  width:100%;
+  height:50px;
+  border-radius:12px;
+  font-weight:bold;
+  cursor:pointer;
 }
 
 .primary{
-border:0;
-margin-top:20px;
-background:#fff;
-color:#111;
-}
-
-.primary:disabled{
-opacity:.5;
+  border:0;
+  margin-top:20px;
+  background:#fff;
+  color:#111;
 }
 
 .google-btn{
-margin-top:10px;
-border:1px solid #ffffff20;
-background:#fff;
-color:#111;
+  margin-top:10px;
+  border:1px solid #ffffff20;
+  background:#fff;
+  color:#111;
+}
+
+.primary:disabled{
+  opacity:.5;
+  cursor:not-allowed;
 }
 
 .divider{
-display:flex;
-align-items:center;
-gap:10px;
-margin:18px 0;
-color:#777;
-font-size:13px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:18px 0;
+  color:#777;
+  font-size:13px;
 }
 
 .divider:before,
 .divider:after{
-content:"";
-height:1px;
-background:#ffffff15;
-flex:1;
+  content:"";
+  height:1px;
+  background:#ffffff15;
+  flex:1;
 }
 
 .switch{
-text-align:center;
-margin-top:20px;
-color:#888;
+  text-align:center;
+  margin-top:20px;
+  color:#888;
 }
 
 .switch button{
-border:0;
-background:none;
-color:#fff;
-font-weight:bold;
-cursor:pointer;
+  border:0;
+  background:none;
+  color:#fff;
+  font-weight:bold;
+  cursor:pointer;
 }
 
 .error{
-display:none;
-margin-top:15px;
-padding:11px;
-border-radius:10px;
-background:#ff000018;
-color:#ffaaaa;
-font-size:14px;
+  display:none;
+  margin-top:15px;
+  padding:11px;
+  border-radius:10px;
+  background:#ff000018;
+  color:#ffaaaa;
+  font-size:14px;
 }
 
 .chat{
-height:100vh;
-display:flex;
-flex-direction:column;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
 }
 
 .header{
-height:65px;
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:0 20px;
-border-bottom:1px solid #ffffff12;
-background:#111114;
+  height:65px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 20px;
+  border-bottom:1px solid #ffffff12;
+  background:#111114;
 }
 
 .brand{
-font-size:22px;
-font-weight:900;
-letter-spacing:3px;
+  font-size:22px;
+  font-weight:900;
+  letter-spacing:3px;
 }
 
 .account{
-display:flex;
-align-items:center;
-gap:12px;
-color:#aaa;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  color:#aaa;
 }
 
 .logout{
-border:1px solid #ffffff20;
-background:#ffffff08;
-color:#fff;
-border-radius:10px;
-padding:9px 14px;
-cursor:pointer;
+  border:1px solid #ffffff20;
+  background:#ffffff08;
+  color:#fff;
+  border-radius:10px;
+  padding:9px 14px;
+  cursor:pointer;
 }
 
 .messages{
-flex:1;
-overflow:auto;
-padding:25px;
+  flex:1;
+  overflow:auto;
+  padding:25px;
 }
 
 .message{
-max-width:900px;
-margin:18px auto;
-display:flex;
+  max-width:900px;
+  margin:18px auto;
+  display:flex;
 }
 
 .message.user{
-justify-content:flex-start;
+  justify-content:flex-start;
 }
 
 .message.ai{
-justify-content:flex-end;
+  justify-content:flex-end;
 }
 
 .bubble{
-max-width:750px;
-padding:14px 18px;
-border-radius:18px;
-line-height:1.8;
-white-space:pre-wrap;
+  max-width:750px;
+  padding:14px 18px;
+  border-radius:18px;
+  line-height:1.8;
+  white-space:pre-wrap;
 }
 
 .user .bubble{
-background:#252529;
+  background:#252529;
 }
 
 .ai .bubble{
-background:#171719;
-border:1px solid #ffffff10;
+  background:#171719;
+  border:1px solid #ffffff10;
 }
 
 .composer{
-padding:15px 25px 25px;
+  padding:15px 25px 25px;
 }
 
 .inputbox{
-max-width:900px;
-margin:auto;
-display:flex;
-gap:10px;
-padding:8px;
-border-radius:18px;
-background:#18181b;
-border:1px solid #ffffff12;
+  max-width:900px;
+  margin:auto;
+  display:flex;
+  gap:10px;
+  padding:8px;
+  border-radius:18px;
+  background:#18181b;
+  border:1px solid #ffffff12;
 }
 
 textarea{
-flex:1;
-height:50px;
-resize:none;
-border:0;
-outline:0;
-background:transparent;
-color:#fff;
-padding:12px;
-font-size:16px;
+  flex:1;
+  height:50px;
+  resize:none;
+  border:0;
+  outline:0;
+  background:transparent;
+  color:#fff;
+  padding:12px;
+  font-size:16px;
 }
 
 .send{
-width:90px;
-border:0;
-border-radius:13px;
-background:#fff;
-color:#111;
-font-weight:bold;
-cursor:pointer;
+  width:90px;
+  border:0;
+  border-radius:13px;
+  background:#fff;
+  color:#111;
+  font-weight:bold;
+  cursor:pointer;
 }
 
 @media(max-width:600px){
-.card{padding:28px 20px}
-.messages{padding:15px 10px}
-.composer{padding:10px}
-.account span{display:none}
+  .card{padding:28px 20px}
+  .messages{padding:15px 10px}
+  .composer{padding:10px}
+  .account span{display:none}
 }
 </style>
 </head>
@@ -264,136 +262,133 @@ cursor:pointer;
 
 <section id="auth" class="auth">
 
-<div class="card">
+  <div class="card">
 
-<div class="logo">MAZYAR</div>
+    <div class="logo">MAZYAR</div>
 
-<div class="sub">
-هاوڕێی زیرەکی دەستکرد 🤖
-</div>
+    <div class="sub">
+      هاوڕێی زیرەکی دەستکرد 🤖
+    </div>
 
-<div id="usernameBox" class="hidden">
+    <div id="usernameBox" class="hidden">
+      <label>ناوی بەکارهێنەر</label>
+      <input
+        id="username"
+        type="text"
+        placeholder="ناوی تۆ">
+    </div>
 
-<label>ناوی بەکارهێنەر</label>
+    <label>ئیمەیڵ</label>
 
-<input
-id="username"
-type="text"
-placeholder="ناوی تۆ">
+    <input
+      id="email"
+      type="email"
+      autocomplete="email"
+      placeholder="example@gmail.com">
 
-</div>
+    <label>پاسوۆرد</label>
 
-<label>ئیمەیڵ</label>
+    <input
+      id="password"
+      type="password"
+      autocomplete="current-password"
+      placeholder="••••••••">
 
-<input
-id="email"
-type="email"
-autocomplete="email"
-placeholder="example@gmail.com">
+    <button
+      id="authBtn"
+      class="primary"
+      onclick="authUser()">
+      چوونەژوورەوە
+    </button>
 
-<label>پاسوۆرد</label>
+    <div class="divider">یان</div>
 
-<input
-id="password"
-type="password"
-autocomplete="current-password"
-placeholder="••••••••">
+    <button
+      type="button"
+      class="google-btn"
+      onclick="loginWithGoogle()">
+      Continue with Google
+    </button>
 
-<button
-id="authBtn"
-class="primary"
-onclick="authUser()">
-چوونەژوورەوە
-</button>
+    <div id="error" class="error"></div>
 
-<div class="divider">یان</div>
+    <div class="switch">
 
-<button
-type="button"
-class="google-btn"
-onclick="loginWithGoogle()">
-Continue with Google
-</button>
+      <span id="switchText">
+        هەژمارت نییە؟
+      </span>
 
-<div id="error" class="error"></div>
+      <button onclick="toggleMode()">
+        <span id="switchBtn">
+          هەژمار دروست بکە
+        </span>
+      </button>
 
-<div class="switch">
+    </div>
 
-<span id="switchText">
-هەژمارت نییە؟
-</span>
-
-<button onclick="toggleMode()">
-<span id="switchBtn">
-هەژمار دروست بکە
-</span>
-</button>
-
-</div>
-
-</div>
+  </div>
 
 </section>
 
 
 <section id="chat" class="chat hidden">
 
-<header class="header">
+  <header class="header">
 
-<div class="brand">
-MAZYAR AI
-</div>
+    <div class="brand">
+      MAZYAR AI
+    </div>
 
-<div class="account">
+    <div class="account">
 
-<span id="userName"></span>
+      <span id="userName"></span>
 
-<button
-class="logout"
-onclick="logout()">
-دەرچوون
-</button>
+      <button
+        class="logout"
+        onclick="logout()">
+        دەرچوون
+      </button>
 
-</div>
+    </div>
 
-</header>
-
-
-<main id="messages" class="messages">
-
-<div class="message ai">
-
-<div class="bubble">
-سڵاو 👋 من MAZYAR ـم.
-<br>
-بەخێربێیت! چ پرسیارێکت هەیە؟
-</div>
-
-</div>
-
-</main>
+  </header>
 
 
-<footer class="composer">
+  <main id="messages" class="messages">
 
-<div class="inputbox">
+    <div class="message ai">
 
-<textarea
-id="question"
-placeholder="پرسیارەکەت بنووسە..."
-onkeydown="keyHandler(event)">
-</textarea>
+      <div class="bubble">
+        سڵاو 👋 من MAZYAR ـم.
+        <br>
+        بەخێربێیت! چ پرسیارێکت هەیە؟
+      </div>
 
-<button
-id="sendBtn"
-class="send"
-onclick="sendMessage()">
-ناردن
-</button>
+    </div>
 
-</div>
+  </main>
 
-</footer>
+
+  <footer class="composer">
+
+    <div class="inputbox">
+
+      <textarea
+        id="question"
+        placeholder="پرسیارەکەت بنووسە..."
+        onkeydown="keyHandler(event)">
+      </textarea>
+
+      <button
+        id="sendBtn"
+        class="send"
+        onclick="sendMessage()">
+        ناردن
+      </button>
+
+    </div>
+
+  </footer>
 
 </section>
 
@@ -401,7 +396,7 @@ onclick="sendMessage()">
 <script type="module">
 
 import {
-createClient
+  createClient
 }
 from
 "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
@@ -416,381 +411,432 @@ const SUPABASE_KEY =
 
 const supabase =
 createClient(
-SUPABASE_URL,
-SUPABASE_KEY
+  SUPABASE_URL,
+  SUPABASE_KEY
 );
 
 
 let signUp = false;
 
 
-window.toggleMode = function(){
+function showError(message){
 
-signUp = !signUp;
+  const error =
+  document.getElementById("error");
 
-document
-.getElementById("usernameBox")
-.classList
-.toggle("hidden",!signUp);
-
-document
-.getElementById("authBtn")
-.textContent =
-signUp
-? "هەژمار دروست بکە"
-: "چوونەژوورەوە";
-
-document
-.getElementById("switchText")
-.textContent =
-signUp
-? "هەژمارت هەیە؟"
-: "هەژمارت نییە؟";
-
-document
-.getElementById("switchBtn")
-.textContent =
-signUp
-? "چوونەژوورەوە"
-: "هەژمار دروست بکە";
-
-};
-
-
-function errorMessage(text){
-
-const el =
-document.getElementById("error");
-
-el.textContent = text;
-el.style.display = "block";
+  error.textContent = message;
+  error.style.display = "block";
 
 }
 
 
 function clearError(){
 
-document
-.getElementById("error")
-.style.display = "none";
+  const error =
+  document.getElementById("error");
+
+  error.textContent = "";
+  error.style.display = "none";
 
 }
+
+
+function openAI(user){
+
+  document
+    .getElementById("auth")
+    .classList
+    .add("hidden");
+
+  document
+    .getElementById("chat")
+    .classList
+    .remove("hidden");
+
+
+  const name =
+    user?.user_metadata?.username ||
+    user?.user_metadata?.full_name ||
+    user?.user_metadata?.name ||
+    user?.email?.split("@")[0] ||
+    "هاوڕێ";
+
+
+  document
+    .getElementById("userName")
+    .textContent = name;
+
+}
+
+
+window.toggleMode = function(){
+
+  signUp = !signUp;
+
+  document
+    .getElementById("usernameBox")
+    .classList
+    .toggle("hidden", !signUp);
+
+  document
+    .getElementById("authBtn")
+    .textContent =
+      signUp
+      ? "هەژمار دروست بکە"
+      : "چوونەژوورەوە";
+
+  document
+    .getElementById("switchText")
+    .textContent =
+      signUp
+      ? "هەژمارت هەیە؟"
+      : "هەژمارت نییە؟";
+
+  document
+    .getElementById("switchBtn")
+    .textContent =
+      signUp
+      ? "چوونەژوورەوە"
+      : "هەژمار دروست بکە";
+
+};
 
 
 window.authUser = async function(){
 
-clearError();
+  clearError();
 
-const email =
-document
-.getElementById("email")
-.value
-.trim();
+  const email =
+    document
+      .getElementById("email")
+      .value
+      .trim();
 
-const password =
-document
-.getElementById("password")
-.value;
+  const password =
+    document
+      .getElementById("password")
+      .value;
 
-const username =
-document
-.getElementById("username")
-.value
-.trim();
-
-
-if(!email){
-errorMessage("ئیمەیڵ بنووسە.");
-return;
-}
-
-if(!password){
-errorMessage("پاسوۆرد بنووسە.");
-return;
-}
-
-if(signUp && !username){
-errorMessage("ناوت بنووسە.");
-return;
-}
+  const username =
+    document
+      .getElementById("username")
+      .value
+      .trim();
 
 
-const btn =
-document.getElementById("authBtn");
+  if(!email){
+    showError("ئیمەیڵ بنووسە.");
+    return;
+  }
 
-btn.disabled = true;
-btn.textContent = "چاوەڕێ بکە...";
+  if(!password){
+    showError("پاسوۆرد بنووسە.");
+    return;
+  }
 
-
-try{
-
-if(signUp){
-
-const result =
-await supabase.auth.signUp({
-
-email,
-password,
-
-options:{
-data:{
-username: username
-}
-}
-
-});
-
-if(result.error)
-throw result.error;
-
-if(result.data.session){
-
-openAI(result.data.user);
-
-}else{
-
-errorMessage(
-"هەژمار دروست بوو. تکایە ئیمەیڵەکەت پشتڕاست بکە."
-);
-
-}
-
-}else{
-
-const result =
-await supabase.auth.signInWithPassword({
-
-email,
-password
-
-});
-
-if(result.error)
-throw result.error;
-
-openAI(result.data.user);
-
-}
-
-}catch(error){
-
-console.error(error);
-
-errorMessage(
-error.message ||
-"هەڵەیەک ڕوویدا."
-);
-
-}
+  if(signUp && !username){
+    showError("ناوی بەکارهێنەر بنووسە.");
+    return;
+  }
 
 
-btn.disabled = false;
+  const btn =
+    document.getElementById("authBtn");
 
-btn.textContent =
-signUp
-? "هەژمار دروست بکە"
-: "چوونەژوورەوە";
+  btn.disabled = true;
+  btn.textContent = "چاوەڕێ بکە...";
+
+
+  try{
+
+    if(signUp){
+
+      const {data,error} =
+        await supabase.auth.signUp({
+
+          email,
+          password,
+
+          options:{
+            data:{
+              username
+            }
+          }
+
+        });
+
+
+      if(error)
+        throw error;
+
+
+      if(data.session){
+
+        openAI(data.user);
+
+      }else{
+
+        showError(
+          "هەژمار دروست بوو. تکایە ئیمەیڵەکەت پشتڕاست بکە."
+        );
+
+      }
+
+
+    }else{
+
+      const {data,error} =
+        await supabase.auth.signInWithPassword({
+
+          email,
+          password
+
+        });
+
+
+      if(error)
+        throw error;
+
+
+      openAI(data.user);
+
+    }
+
+
+  }catch(error){
+
+    console.error(error);
+
+    showError(
+      error.message ||
+      "هەڵەیەک ڕوویدا."
+    );
+
+  }
+
+
+  btn.disabled = false;
+
+  btn.textContent =
+    signUp
+    ? "هەژمار دروست بکە"
+    : "چوونەژوورەوە";
 
 };
 
 
 window.loginWithGoogle = async function(){
 
-clearError();
+  clearError();
 
-const { error } =
-await supabase.auth.signInWithOAuth({
 
-provider: "google",
+  const {error} =
+    await supabase.auth.signInWithOAuth({
 
-options:{
-redirectTo:
-"https://mazyar.vercel.app/"
-}
+      provider:"google",
 
-});
+      options:{
+        redirectTo:
+          "https://mazyar.vercel.app/"
+      }
 
-if(error){
+    });
 
-console.error(error);
 
-errorMessage(
-error.message ||
-"Google Login هەڵەی هەیە."
-);
+  if(error){
 
-}
+    console.error(error);
+
+    showError(
+      error.message ||
+      "Google Login هەڵەی هەیە."
+    );
+
+  }
 
 };
 
 
-function openAI(user){
-
-document
-.getElementById("auth")
-.classList
-.add("hidden");
-
-document
-.getElementById("chat")
-.classList
-.remove("hidden");
-
-
-const name =
-user.user_metadata?.username ||
-user.user_metadata?.full_name ||
-user.email?.split("@")[0] ||
-"هاوڕێ";
-
-
-document
-.getElementById("userName")
-.textContent =
-name;
-
-}
-
-
 window.logout = async function(){
 
-await supabase.auth.signOut();
+  await supabase.auth.signOut();
 
-location.reload();
+  location.reload();
 
 };
 
 
 function addMessage(text,type){
 
-const row =
-document.createElement("div");
+  const row =
+    document.createElement("div");
 
-row.className =
-"message " + type;
-
-
-const bubble =
-document.createElement("div");
-
-bubble.className = "bubble";
-
-bubble.textContent = text;
-
-row.appendChild(bubble);
+  row.className =
+    "message " + type;
 
 
-const messages =
-document.getElementById("messages");
+  const bubble =
+    document.createElement("div");
 
-messages.appendChild(row);
+  bubble.className =
+    "bubble";
 
-messages.scrollTop =
-messages.scrollHeight;
+  bubble.textContent =
+    text;
 
 
-return bubble;
+  row.appendChild(bubble);
+
+
+  const messages =
+    document.getElementById("messages");
+
+  messages.appendChild(row);
+
+  messages.scrollTop =
+    messages.scrollHeight;
+
+
+  return bubble;
 
 }
 
 
 window.sendMessage = async function(){
 
-const input =
-document.getElementById("question");
+  const input =
+    document.getElementById("question");
 
-const text =
-input.value.trim();
-
-if(!text)
-return;
+  const text =
+    input.value.trim();
 
 
-addMessage(text,"user");
-
-input.value = "";
-
-
-const answer =
-addMessage(
-"MAZYAR خەریکی بیرکردنەوەیە... 🤖",
-"ai"
-);
+  if(!text)
+    return;
 
 
-try{
+  addMessage(
+    text,
+    "user"
+  );
 
-const response =
-await fetch("/api/chat",{
-
-method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify({
-message:text
-})
-
-});
+  input.value = "";
 
 
-const data =
-await response.json();
+  const answer =
+    addMessage(
+      "MAZYAR خەریکی بیرکردنەوەیە... 🤖",
+      "ai"
+    );
 
 
-if(!response.ok){
+  try{
 
-throw new Error(
-data.error ||
-"AI error"
-);
+    const response =
+      await fetch(
+        "/api/chat",
+        {
+          method:"POST",
 
-}
+          headers:{
+            "Content-Type":
+            "application/json"
+          },
+
+          body:JSON.stringify({
+            message:text
+          })
+        }
+      );
 
 
-answer.textContent =
-data.answer;
+    const data =
+      await response.json();
 
 
-}catch(error){
+    if(!response.ok){
 
-console.error(error);
+      throw new Error(
+        data.error ||
+        "AI error"
+      );
 
-answer.textContent =
-"ببورە، کێشەیەک لە پەیوەندی بە AI هەیە.";
+    }
 
-}
+
+    answer.textContent =
+      data.answer ||
+      "وەڵامێک نەهاتەوە.";
+
+
+  }catch(error){
+
+    console.error(error);
+
+    answer.textContent =
+      "ببورە، کێشەیەک لە پەیوەندی بە AI هەیە.";
+
+  }
 
 };
 
 
 window.keyHandler = function(event){
 
-if(
-event.key === "Enter" &&
-!event.shiftKey
-){
+  if(
+    event.key === "Enter" &&
+    !event.shiftKey
+  ){
 
-event.preventDefault();
+    event.preventDefault();
 
-sendMessage();
+    sendMessage();
 
-}
+  }
 
 };
 
 
-const sessionResult =
+/*
+  ئەمە زۆر گرنگە:
+  هەر کاتێک Google Login یان
+  Email Login session دروست دەکات،
+  ئەم listener ـە MAZYAR Chat دەکاتەوە.
+*/
+
+supabase.auth.onAuthStateChange(
+  (event, session) => {
+
+    if(session){
+
+      openAI(
+        session.user
+      );
+
+    }
+
+  }
+);
+
+
+/*
+  ئەگەر پێشتر login بووبێت،
+  session ـی هەنووکەیی بخوێنەوە.
+*/
+
+const {
+  data:{
+    session
+  }
+} =
 await supabase.auth.getSession();
 
 
-if(sessionResult.data.session){
+if(session){
 
-openAI(
-sessionResult.data.session.user
-);
+  openAI(
+    session.user
+  );
 
 }
 
