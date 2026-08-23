@@ -1,111 +1,495 @@
-// --- 1. دەستنیشانکردنی ئەلەمێنتەکانی DOM ---
-const authScreen = document.getElementById('authScreen');
-const chatScreen = document.getElementById('chatScreen');
-const loginForm = document.getElementById('loginForm');
-const googleBtn = document.getElementById('googleBtn');
-const logoutBtn = document.getElementById('logoutBtn');
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AURA AI — Next-Gen Intelligence</title>
+  
+  <style>
+    /* ============================================================
+       1. CORE DESIGN SYSTEM & GLASSMORPHISM UI (کۆنترۆڵی دیزاین)
+       ============================================================ */
+    :root {
+      --bg-gradient: linear-gradient(135deg, #090d16 0%, #0f172a 50%, #1e1035 100%);
+      --glass-bg: rgba(30, 41, 59, 0.55);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --accent-glow: radial-gradient(circle, rgba(99,102,241,0.25) 0%, rgba(0,0,0,0) 70%);
+      
+      --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+      --primary-hover: linear-gradient(135deg, #4f46e5 0%, #9333ea 100%);
+      
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      
+      --user-msg-bg: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+      --bot-msg-bg: rgba(30, 41, 59, 0.7);
+      
+      --radius-lg: 20px;
+      --radius-sm: 12px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-const chatMessages = document.getElementById('chatMessages');
-const userInput = document.getElementById('userInput');
-const sendBtn = document.getElementById('sendBtn');
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+    }
 
-// --- 2. بەڕێوەبردنی حاڵەتی چوونەژوورەوە و دەرچوون ---
-function showChatView() {
-  authScreen.style.display = 'none';
-  chatScreen.style.display = 'flex';
-}
+    body {
+      background: var(--bg-gradient);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      direction: rtl;
+    }
 
-function showLoginView() {
-  chatScreen.style.display = 'none';
-  authScreen.style.display = 'block';
-  chatMessages.innerHTML = '<div class="message bot">سڵاو! من ژیریی دەستکردم. چۆن دەتوانم هاوکاریت بکەم؟</div>';
-}
+    /* Ambient Background Glow */
+    body::before {
+      content: '';
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: var(--accent-glow);
+      top: -100px;
+      right: -100px;
+      z-index: 0;
+      pointer-events: none;
+    }
 
-// چوونەژوورەوە بە ئیمەیڵ و وشەی نهێنی
-loginForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
+    /* ============================================================
+       2. AUTHENTICATION CARD (شاشەی چوونەژوورەوە)
+       ============================================================ */
+    .auth-card {
+      position: relative;
+      z-index: 1;
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      padding: 3rem 2.5rem;
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      animation: fadeIn 0.6s ease-out;
+    }
 
-  if (email && password) {
-    // لێرەدا دەتوانیت Firebase Auth یان API ناوەکی خۆت بەکاربهێنیت
-    console.log(`Loggin in with: ${email}`);
-    showChatView();
-  }
-});
+    .brand-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
 
-// چوونەژوورەوە بە Google
-googleBtn.addEventListener('click', () => {
-  // شوێنی بەستنەوەی Google Auth SDK
-  console.log('Initiating Google Login...');
-  showChatView();
-});
+    .brand-logo {
+      width: 50px;
+      height: 50px;
+      background: var(--primary-gradient);
+      border-radius: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.8rem;
+      box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+    }
 
-// دەرچوون لە ئەپڵیکەیشن
-logoutBtn.addEventListener('click', () => {
-  showLoginView();
-});
+    .brand-header h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
 
+    .brand-header p {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      margin-top: 0.2rem;
+    }
 
-// --- 3. لۆجیکی چات و پەیوەندیکردن بە AI ---
+    .form-field {
+      margin-bottom: 1.2rem;
+    }
 
-// ناردنی پەیام
-function sendMessage() {
-  const text = userInput.value.trim();
-  if (text === '') return;
+    .form-field label {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+    }
 
-  // ۱. نیشاندانی پەیامی بەکارهێنەر
-  appendMessage(text, 'user');
-  userInput.value = '';
+    .form-field input {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-sm);
+      color: var(--text-main);
+      outline: none;
+      transition: var(--transition);
+    }
 
-  // ۲. نیشاندانی نیشانەی "وەڵامدانەوە..."
-  const typingIndicator = appendMessage('لە وەڵامدانەوەدایە...', 'bot');
+    .form-field input:focus {
+      border-color: #6366f1;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+    }
 
-  // ۳. پەیوەندیکردن بە APIی ژیریی دەستکرد (نموونە بۆ OpenAI یان backend)
-  fetchAIResponse(text)
-    .then((reply) => {
-      typingIndicator.textContent = reply;
-    })
-    .catch((err) => {
-      typingIndicator.textContent = 'کێشەیەک ڕوویدا لە وەرگرتنی وەڵام.';
-      console.error(err);
+    .btn-submit {
+      width: 100%;
+      padding: 0.9rem;
+      background: var(--primary-gradient);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+    }
+
+    .btn-submit:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      margin: 1.5rem 0;
+    }
+
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .divider::before { margin-left: 0.5rem; }
+    .divider::after { margin-right: 0.5rem; }
+
+    .btn-google {
+      width: 100%;
+      padding: 0.85rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-sm);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .btn-google:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* ============================================================
+       3. CHAT DASHBOARD UI (ڕووکاری سەرەکیی چات)
+       ============================================================ */
+    .chat-app {
+      display: none;
+      position: relative;
+      z-index: 1;
+      width: 95vw;
+      max-width: 1000px;
+      height: 88vh;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+      flex-direction: column;
+      overflow: hidden;
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    .chat-header {
+      padding: 1.2rem 2rem;
+      background: rgba(15, 23, 42, 0.8);
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      background: #10b981;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #10b981;
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 2rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      scroll-behavior: smooth;
+    }
+
+    .message {
+      max-width: 70%;
+      padding: 1rem 1.4rem;
+      border-radius: 18px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      word-wrap: break-word;
+      animation: msgPop 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    }
+
+    .message.user {
+      align-self: flex-start;
+      background: var(--user-msg-bg);
+      color: #ffffff;
+      border-bottom-right-radius: 4px;
+      box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+    }
+
+    .message.bot {
+      align-self: flex-end;
+      background: var(--bot-msg-bg);
+      border: 1px solid var(--glass-border);
+      color: var(--text-main);
+      border-bottom-left-radius: 4px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .chat-input-wrapper {
+      padding: 1.2rem 2rem;
+      background: rgba(15, 23, 42, 0.8);
+      border-top: 1px solid var(--glass-border);
+    }
+
+    .input-box {
+      display: flex;
+      gap: 12px;
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid var(--glass-border);
+      padding: 6px 8px 6px 16px;
+      border-radius: var(--radius-sm);
+      transition: var(--transition);
+    }
+
+    .input-box:focus-within {
+      border-color: #6366f1;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+    }
+
+    .input-box input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--text-main);
+      outline: none;
+      font-size: 0.95rem;
+    }
+
+    .btn-send {
+      background: var(--primary-gradient);
+      border: none;
+      color: white;
+      padding: 0.7rem 1.4rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .btn-send:hover {
+      opacity: 0.9;
+      transform: scale(1.02);
+    }
+
+    .btn-logout {
+      background: rgba(239, 68, 68, 0.15);
+      color: #ef4444;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .btn-logout:hover {
+      background: #ef4444;
+      color: white;
+    }
+
+    /* Keyframe Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes msgPop {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       4. AUTHENTICATION MODULE (HTML)
+       ============================================================ -->
+  <div class="auth-card" id="authCard">
+    <div class="brand-header">
+      <div class="brand-logo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10H12V2z"/><path d="M12 12L2.5 7.5"/><path d="M12 12v10"/></svg>
+      </div>
+      <h1>AURA AI</h1>
+      <p>تەکنۆلۆژیای ژیریی دەستکردی نەوەی نوێ</p>
+    </div>
+
+    <form id="authForm">
+      <div class="form-field">
+        <label for="email">ئیمەیڵ</label>
+        <input type="email" id="email" placeholder="name@domain.com" required>
+      </div>
+      <div class="form-field">
+        <label for="password">وشەی نهێنی</label>
+        <input type="password" id="password" placeholder="••••••••" required>
+      </div>
+      <button type="submit" class="btn-submit">چوونەژوورەوە</button>
+    </form>
+
+    <div class="divider">یان بەردەوام بە لەڕێگەی</div>
+
+    <button class="btn-google" id="googleAuthBtn">
+      <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.29v3.15C3.26 21.3 7.31 24 12 24z"/><path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.29c-.8 1.6-1.25 3.37-1.25 5.42s.45 3.82 1.25 5.42l3.99-3.15z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.58l3.99 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/></svg>
+      بەردەوامبوون بە Google
+    </button>
+  </div>
+
+  <!-- ============================================================
+       5. CHAT ENGINE MODULE (HTML)
+       ============================================================ -->
+  <div class="chat-app" id="chatApp">
+    <div class="chat-header">
+      <div class="status-indicator">
+        <div class="status-dot"></div>
+        <div>
+          <h3 style="font-size: 1rem; font-weight: 600;">AURA v2.5</h3>
+          <span style="font-size: 0.75rem; color: var(--text-muted);">پەیوەستکراوە • ئۆنلاین</span>
+        </div>
+      </div>
+      <button class="btn-logout" id="logoutBtn">دەرچوون</button>
+    </div>
+
+    <div class="chat-messages" id="chatMessages">
+      <div class="message bot">سڵاو! من AURA-م. چۆن دەتوانم لە پڕۆژەکەت یان پرسیارەکانتدا هاوکاریت بکەم؟</div>
+    </div>
+
+    <div class="chat-input-wrapper">
+      <div class="input-box">
+        <input type="text" id="userInput" placeholder="پەیامەکەت یان پرسیارەکەت لێرە بنووسە..." autocomplete="off">
+        <button class="btn-send" id="sendBtn">ناردن</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       6. JAVASCRIPT LOGIC ENGINE
+       ============================================================ -->
+  <script>
+    // DOM Elements
+    const authCard = document.getElementById('authCard');
+    const chatApp = document.getElementById('chatApp');
+    const authForm = document.getElementById('authForm');
+    const googleAuthBtn = document.getElementById('googleAuthBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+    
+    const chatMessages = document.getElementById('chatMessages');
+    const userInput = document.getElementById('userInput');
+    const sendBtn = document.getElementById('sendBtn');
+
+    // UI View Controllers
+    function activateChat() {
+      authCard.style.display = 'none';
+      chatApp.style.display = 'flex';
+    }
+
+    function activateAuth() {
+      chatApp.style.display = 'none';
+      authCard.style.display = 'block';
+    }
+
+    // Auth Listeners
+    authForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      activateChat();
     });
-}
 
-// دروستکردنی ئەلەمێنتی پەیام لەرێگەی DOM
-function appendMessage(text, sender) {
-  const msgDiv = document.createElement('div');
-  msgDiv.classList.add('message', sender);
-  msgDiv.textContent = text;
-  
-  chatMessages.appendChild(msgDiv);
-  chatMessages.scrollTop = chatMessages.scrollHeight; // Auto scroll بۆ خوارەوە
-  
-  return msgDiv;
-}
+    googleAuthBtn.addEventListener('click', () => {
+      activateChat();
+    });
 
-// سیستەمی وەڵامدانەوەی دەستکرد (Mock API / Real API Target)
-async function fetchAIResponse(userText) {
-  /* ئەگەر API واقعی بەکاربهێنیت:
-  const response = await fetch('https://api.your-backend.com/chat', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ message: userText })
-  });
-  const data = await response.json();
-  return data.reply;
-  */
+    logoutBtn.addEventListener('click', () => {
+      activateAuth();
+    });
 
-  // وەڵامی نموونەیی بۆ تاقیکردنەوە (دواکەوتنی ۱ چرکە)
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(`وەڵامی دروستکراو بۆ: "${userText}"`);
-    }, 1000);
-  });
-}
+    // Chat Pipeline Logic
+    function handleSend() {
+      const query = userInput.value.trim();
+      if (!query) return;
 
-// گوێگرتن لە کلیلی Enter و دوگمەی Send
-sendBtn.addEventListener('click', sendMessage);
-userInput.addEventListener('keypress', (e) => {
-  if (e.key === 'Enter') sendMessage();
-});
+      // 1. User Message Injection
+      renderMessage(query, 'user');
+      userInput.value = '';
+
+      // 2. Typing State Injection
+      const typingNode = renderMessage('AURA بیر دەکاتەوە...', 'bot');
+
+      // 3. Simulated Async AI Response
+      generateAIResponse(query).then(response => {
+        typingNode.textContent = response;
+      });
+    }
+
+    function renderMessage(text, sender) {
+      const msg = document.createElement('div');
+      msg.classList.add('message', sender);
+      msg.textContent = text;
+      
+      chatMessages.appendChild(msg);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      return msg;
+    }
+
+    // AI Engine Interface
+    async function generateAIResponse(prompt) {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(`وەڵامی ژیریی دەستکرد بۆ: "${prompt}". لە قۆناغی داهاتوودا دەتوانیت ئەم بەشە بە ئاسانی بە OpenAI API یان Gemini API ڕاستەقینە ببه‌ستیتەوە.`);
+        }, 1200);
+      });
+    }
+
+    // Event Triggers
+    sendBtn.addEventListener('click', handleSend);
+    userInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') handleSend();
+    });
+  </script>
+</body>
+</html>
