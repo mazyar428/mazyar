@@ -3,7 +3,7 @@
 <html lang="ku" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MAZYAR AI</title>
 
 <style>
@@ -12,16 +12,12 @@
 body{
 margin:0;
 font-family:Arial,sans-serif;
-background:#09090b;
+background:#08080a;
 color:#fff;
 height:100vh;
 }
 
 .hidden{display:none!important}
-
-button,input,textarea{font-family:inherit}
-
-/* AUTH */
 
 .auth{
 height:100vh;
@@ -75,20 +71,52 @@ padding:0 14px;
 outline:none;
 }
 
-.primary{
+.primary,
+.google-btn{
 width:100%;
 height:50px;
-border:0;
 border-radius:12px;
-margin-top:20px;
-background:#fff;
-color:#111;
 font-weight:bold;
 cursor:pointer;
 }
 
+.primary{
+border:0;
+margin-top:20px;
+background:#fff;
+color:#111;
+}
+
 .primary:disabled{
 opacity:.5;
+}
+
+.google-btn{
+margin-top:10px;
+border:1px solid #ffffff20;
+background:#ffffff08;
+color:#fff;
+}
+
+.google-btn:hover{
+background:#ffffff12;
+}
+
+.divider{
+display:flex;
+align-items:center;
+gap:10px;
+margin:18px 0;
+color:#777;
+font-size:13px;
+}
+
+.divider:before,
+.divider:after{
+content:"";
+height:1px;
+background:#ffffff15;
+flex:1;
 }
 
 .switch{
@@ -114,9 +142,6 @@ background:#ff000018;
 color:#ffaaaa;
 font-size:14px;
 }
-
-
-/* CHAT */
 
 .chat{
 height:100vh;
@@ -248,7 +273,7 @@ cursor:pointer;
 <div class="logo">MAZYAR</div>
 
 <div class="sub">
-هاوڕێی زیرەکی دەستکردی کوردی 🤖
+هاوڕێی زیرەکی دەستکرد 🤖
 </div>
 
 <div id="usernameBox" class="hidden">
@@ -282,9 +307,16 @@ placeholder="••••••••">
 id="authBtn"
 class="primary"
 onclick="authUser()">
-
 چوونەژوورەوە
+</button>
 
+<div class="divider">یان</div>
+
+<button
+type="button"
+class="google-btn"
+onclick="loginWithGoogle()">
+Continue with Google
 </button>
 
 <div id="error" class="error"></div>
@@ -323,9 +355,7 @@ MAZYAR AI
 <button
 class="logout"
 onclick="logout()">
-
 دەرچوون
-
 </button>
 
 </div>
@@ -355,16 +385,14 @@ onclick="logout()">
 <textarea
 id="question"
 placeholder="پرسیارەکەت بنووسە..."
-onkeydown="keyHandler(event)"
-></textarea>
+onkeydown="keyHandler(event)">
+</textarea>
 
 <button
 id="sendBtn"
 class="send"
 onclick="sendMessage()">
-
 ناردن
-
 </button>
 
 </div>
@@ -389,6 +417,7 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_KRRdhD9dmvwzHZwsmBXbhA_ACxwSR2T";
 
+
 const supabase =
 createClient(
 SUPABASE_URL,
@@ -396,12 +425,12 @@ SUPABASE_KEY
 );
 
 
-let signUp=false;
+let signUp = false;
 
 
-window.toggleMode=function(){
+window.toggleMode = function(){
 
-signUp=!signUp;
+signUp = !signUp;
 
 document
 .getElementById("usernameBox")
@@ -410,35 +439,35 @@ document
 
 document
 .getElementById("authBtn")
-.textContent=
+.textContent =
 signUp
-?"هەژمار دروست بکە"
-:"چوونەژوورەوە";
+? "هەژمار دروست بکە"
+: "چوونەژوورەوە";
 
 document
 .getElementById("switchText")
-.textContent=
+.textContent =
 signUp
-?"هەژمارت هەیە؟"
-:"هەژمارت نییە؟";
+? "هەژمارت هەیە؟"
+: "هەژمارت نییە؟";
 
 document
 .getElementById("switchBtn")
-.textContent=
+.textContent =
 signUp
-?"چوونەژوورەوە"
-:"هەژمار دروست بکە";
+? "چوونەژوورەوە"
+: "هەژمار دروست بکە";
 
 };
 
 
 function errorMessage(text){
 
-const el=
+const el =
 document.getElementById("error");
 
-el.textContent=text;
-el.style.display="block";
+el.textContent = text;
+el.style.display = "block";
 
 }
 
@@ -447,27 +476,27 @@ function clearError(){
 
 document
 .getElementById("error")
-.style.display="none";
+.style.display = "none";
 
 }
 
 
-window.authUser=async function(){
+window.authUser = async function(){
 
 clearError();
 
-const email=
+const email =
 document
 .getElementById("email")
 .value
 .trim();
 
-const password=
+const password =
 document
 .getElementById("password")
 .value;
 
-const username=
+const username =
 document
 .getElementById("username")
 .value
@@ -475,39 +504,33 @@ document
 
 
 if(!email){
-
 errorMessage("ئیمەیڵ بنووسە.");
 return;
-
 }
 
 if(!password){
-
 errorMessage("پاسوۆرد بنووسە.");
 return;
-
 }
 
 if(signUp && !username){
-
 errorMessage("ناوت بنووسە.");
 return;
-
 }
 
 
-const btn=
+const btn =
 document.getElementById("authBtn");
 
-btn.disabled=true;
-btn.textContent="چاوەڕێ بکە...";
+btn.disabled = true;
+btn.textContent = "چاوەڕێ بکە...";
 
 
 try{
 
 if(signUp){
 
-const result=
+const result =
 await supabase.auth.signUp({
 
 email,
@@ -515,7 +538,7 @@ password,
 
 options:{
 data:{
-username
+username: username
 }
 }
 
@@ -538,7 +561,7 @@ errorMessage(
 
 }else{
 
-const result=
+const result =
 await supabase.auth.signInWithPassword({
 
 email,
@@ -565,12 +588,41 @@ error.message ||
 }
 
 
-btn.disabled=false;
+btn.disabled = false;
 
-btn.textContent=
+btn.textContent =
 signUp
-?"هەژمار دروست بکە"
-:"چوونەژوورەوە";
+? "هەژمار دروست بکە"
+: "چوونەژوورەوە";
+
+};
+
+
+window.loginWithGoogle = async function(){
+
+clearError();
+
+const { error } =
+await supabase.auth.signInWithOAuth({
+
+provider: "google",
+
+options:{
+redirectTo: window.location.origin
+}
+
+});
+
+if(error){
+
+console.error(error);
+
+errorMessage(
+error.message ||
+"Google Login هەڵەی هەیە."
+);
+
+}
 
 };
 
@@ -587,22 +639,23 @@ document
 .classList
 .remove("hidden");
 
-const name=
-user.user_metadata?.username
-||
-user.email?.split("@")[0]
-||
+
+const name =
+user.user_metadata?.username ||
+user.user_metadata?.full_name ||
+user.email?.split("@")[0] ||
 "هاوڕێ";
+
 
 document
 .getElementById("userName")
-.textContent=
+.textContent =
 name;
 
 }
 
 
-window.logout=async function(){
+window.logout = async function(){
 
 await supabase.auth.signOut();
 
@@ -613,40 +666,43 @@ location.reload();
 
 function addMessage(text,type){
 
-const row=
+const row =
 document.createElement("div");
 
-row.className=
-"message "+type;
+row.className =
+"message " + type;
 
-const bubble=
+
+const bubble =
 document.createElement("div");
 
-bubble.className="bubble";
+bubble.className = "bubble";
 
-bubble.textContent=text;
+bubble.textContent = text;
 
 row.appendChild(bubble);
 
-const messages=
+
+const messages =
 document.getElementById("messages");
 
 messages.appendChild(row);
 
-messages.scrollTop=
+messages.scrollTop =
 messages.scrollHeight;
+
 
 return bubble;
 
 }
 
 
-window.sendMessage=async function(){
+window.sendMessage = async function(){
 
-const input=
+const input =
 document.getElementById("question");
 
-const text=
+const text =
 input.value.trim();
 
 if(!text)
@@ -655,10 +711,10 @@ return;
 
 addMessage(text,"user");
 
-input.value="";
+input.value = "";
 
 
-const answer=
+const answer =
 addMessage(
 "MAZYAR خەریکی بیرکردنەوەیە... 🤖",
 "ai"
@@ -667,7 +723,7 @@ addMessage(
 
 try{
 
-const response=
+const response =
 await fetch("/api/chat",{
 
 method:"POST",
@@ -683,7 +739,7 @@ message:text
 });
 
 
-const data=
+const data =
 await response.json();
 
 
@@ -697,14 +753,15 @@ data.error ||
 }
 
 
-answer.textContent=
+answer.textContent =
 data.answer;
+
 
 }catch(error){
 
 console.error(error);
 
-answer.textContent=
+answer.textContent =
 "ببورە، کێشەیەک لە پەیوەندی بە AI هەیە.";
 
 }
@@ -712,10 +769,10 @@ answer.textContent=
 };
 
 
-window.keyHandler=function(event){
+window.keyHandler = function(event){
 
 if(
-event.key==="Enter" &&
+event.key === "Enter" &&
 !event.shiftKey
 ){
 
@@ -728,7 +785,7 @@ sendMessage();
 };
 
 
-const sessionResult=
+const sessionResult =
 await supabase.auth.getSession();
 
 
