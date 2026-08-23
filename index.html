@@ -1,7 +1,6 @@
 ```html
 <!DOCTYPE html>
-<html lang="ku" dir="rtl">
-
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,199 +11,303 @@
       box-sizing: border-box;
     }
 
-    body {
+    :root {
+      --bg: #050507;
+      --panel: #101014;
+      --panel2: #17171c;
+      --border: rgba(255,255,255,.10);
+      --text: #f5f5f7;
+      --muted: #8d8d98;
+      --accent: #ffffff;
+    }
+
+    html, body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #08080a;
-      color: white;
-      min-height: 100vh;
+      width: 100%;
+      height: 100%;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    body {
+      overflow: hidden;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
     }
 
     .hidden {
       display: none !important;
     }
 
-    /* LOGIN */
+    /* ================= LOGIN ================= */
 
     #auth {
+      width: 100%;
       min-height: 100vh;
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       padding: 20px;
+
       background:
-        radial-gradient(circle at top, #222 0%, #08080a 60%);
+        radial-gradient(
+          circle at 50% 0%,
+          rgba(255,255,255,.10),
+          transparent 35%
+        ),
+        #050507;
     }
 
-    .card {
+    .login-card {
       width: 100%;
-      max-width: 420px;
-      background: #121214;
-      border: 1px solid #ffffff15;
-      border-radius: 24px;
-      padding: 35px;
-      box-shadow: 0 25px 80px #000;
+      max-width: 430px;
+      padding: 38px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.08),
+          rgba(255,255,255,.025)
+        );
+
+      border: 1px solid var(--border);
+      border-radius: 28px;
+
+      box-shadow:
+        0 35px 100px rgba(0,0,0,.60);
+
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
     }
 
     .logo {
       text-align: center;
-      font-size: 42px;
+      font-size: 43px;
       font-weight: 900;
-      letter-spacing: 5px;
+      letter-spacing: 7px;
     }
 
-    .subtitle {
+    .tagline {
       text-align: center;
-      color: #999;
-      margin: 10px 0 30px;
-    }
-
-    label {
-      display: block;
-      margin: 14px 0 7px;
-      color: #ccc;
+      color: var(--muted);
+      margin: 12px 0 32px;
       font-size: 14px;
     }
 
-    input {
+    .field {
+      margin-bottom: 15px;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 13px;
+      color: #c7c7ce;
+    }
+
+    .field input {
       width: 100%;
-      height: 50px;
-      padding: 0 14px;
-      border-radius: 12px;
-      border: 1px solid #ffffff18;
-      background: #ffffff08;
-      color: white;
+      height: 52px;
+      padding: 0 15px;
+
+      background: rgba(255,255,255,.045);
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 13px;
+
       outline: none;
-      font-size: 15px;
+      color: white;
+
+      transition: .2s;
     }
 
-    input:focus {
-      border-color: #ffffff45;
+    .field input:focus {
+      border-color: rgba(255,255,255,.35);
+      background: rgba(255,255,255,.065);
+      box-shadow: 0 0 0 4px rgba(255,255,255,.035);
     }
 
-    button {
-      font-family: inherit;
+    .field input::placeholder {
+      color: #666670;
     }
 
-    .main-btn,
-    .google-btn {
+    .primary-btn {
       width: 100%;
-      height: 50px;
-      border-radius: 12px;
-      font-weight: bold;
-      cursor: pointer;
-      font-size: 15px;
-    }
+      height: 52px;
+      margin-top: 8px;
 
-    .main-btn {
-      margin-top: 20px;
       border: none;
+      border-radius: 13px;
+
       background: white;
-      color: black;
+      color: #050505;
+
+      font-weight: 800;
+
+      transition: .2s;
     }
 
-    .google-btn {
-      border: 1px solid #ffffff20;
-      background: white;
-      color: black;
+    .primary-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 35px rgba(255,255,255,.15);
     }
 
-    button:disabled {
-      opacity: .5;
-      cursor: not-allowed;
+    .primary-btn:active {
+      transform: scale(.98);
     }
 
     .divider {
       display: flex;
       align-items: center;
-      gap: 10px;
-      color: #777;
-      margin: 18px 0;
-      font-size: 13px;
+      gap: 12px;
+
+      margin: 20px 0;
+
+      color: #666670;
+      font-size: 12px;
     }
 
     .divider::before,
     .divider::after {
       content: "";
       height: 1px;
-      background: #ffffff15;
       flex: 1;
+      background: rgba(255,255,255,.08);
     }
 
-    .switch {
-      text-align: center;
-      margin-top: 20px;
-      color: #888;
-    }
+    .google-btn {
+      width: 100%;
+      height: 52px;
 
-    .switch button {
-      background: none;
-      border: none;
+      border-radius: 13px;
+      border: 1px solid rgba(255,255,255,.12);
+
+      background: rgba(255,255,255,.055);
       color: white;
-      font-weight: bold;
-      cursor: pointer;
+
+      font-weight: 700;
+
+      transition: .2s;
+    }
+
+    .google-btn:hover {
+      background: rgba(255,255,255,.10);
+      transform: translateY(-2px);
     }
 
     .error {
       display: none;
+
       margin-top: 15px;
-      padding: 12px;
-      border-radius: 10px;
-      background: #ff000015;
-      color: #ffaaaa;
-      font-size: 14px;
+      padding: 12px 14px;
+
+      border-radius: 12px;
+
+      background: rgba(255,60,60,.08);
+      border: 1px solid rgba(255,60,60,.16);
+
+      color: #ffb0b0;
+      font-size: 13px;
       line-height: 1.6;
     }
 
-    /* CHAT */
+    .switch {
+      margin-top: 23px;
+      text-align: center;
 
-    #chat {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
+      color: #777780;
+      font-size: 13px;
     }
 
-    .header {
-      height: 65px;
-      padding: 0 20px;
+    .switch button {
+      border: none;
+      background: none;
+      color: white;
+      font-weight: 700;
+    }
+
+    /* ================= CHAT ================= */
+
+    #chat {
+      width: 100%;
+      height: 100vh;
+
+      display: flex;
+      flex-direction: column;
+
+      background:
+        radial-gradient(
+          circle at 50% -20%,
+          rgba(255,255,255,.06),
+          transparent 35%
+        ),
+        #050507;
+    }
+
+    .topbar {
+      height: 68px;
+      flex-shrink: 0;
+
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: #111113;
-      border-bottom: 1px solid #ffffff12;
+
+      padding: 0 24px;
+
+      background: rgba(8,8,11,.80);
+      border-bottom: 1px solid rgba(255,255,255,.07);
+
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
     }
 
     .brand {
-      font-size: 21px;
+      font-size: 20px;
       font-weight: 900;
-      letter-spacing: 3px;
+      letter-spacing: 4px;
     }
 
-    .account {
+    .user-area {
       display: flex;
       align-items: center;
       gap: 12px;
-      color: #aaa;
+
+      color: #9999a4;
+      font-size: 13px;
     }
 
-    .logout {
-      border: 1px solid #ffffff20;
-      background: #ffffff08;
+    .logout-btn {
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.045);
       color: white;
+
       padding: 9px 14px;
       border-radius: 10px;
-      cursor: pointer;
     }
 
     .messages {
       flex: 1;
       overflow-y: auto;
-      padding: 25px 15px;
+
+      padding: 30px 18px;
+
+      scroll-behavior: smooth;
     }
 
     .message {
+      width: 100%;
       max-width: 900px;
-      margin: 15px auto;
+
+      margin: 17px auto;
+
       display: flex;
     }
 
@@ -217,74 +320,161 @@
     }
 
     .bubble {
-      max-width: 750px;
+      max-width: 760px;
+
       padding: 14px 18px;
+
       border-radius: 18px;
+
       line-height: 1.8;
+      font-size: 15px;
+
       white-space: pre-wrap;
+      word-break: break-word;
+
+      animation: messageIn .25s ease;
+    }
+
+    @keyframes messageIn {
+      from {
+        opacity: 0;
+        transform: translateY(7px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .user .bubble {
-      background: #29292d;
+      background: linear-gradient(
+        145deg,
+        #2b2b31,
+        #1d1d22
+      );
+
+      border: 1px solid rgba(255,255,255,.06);
+      border-bottom-left-radius: 6px;
     }
 
     .ai .bubble {
-      background: #171719;
-      border: 1px solid #ffffff10;
+      background: rgba(255,255,255,.035);
+
+      border: 1px solid rgba(255,255,255,.07);
+      border-bottom-right-radius: 6px;
     }
 
     .composer {
-      padding: 12px 20px 22px;
+      padding: 12px 20px 23px;
     }
 
-    .input-box {
-      max-width: 900px;
+    .input-wrap {
+      width: min(900px, 100%);
       margin: auto;
+
       display: flex;
+      align-items: flex-end;
       gap: 8px;
+
       padding: 8px;
-      border-radius: 18px;
-      background: #18181b;
-      border: 1px solid #ffffff12;
+
+      border-radius: 19px;
+
+      background: rgba(255,255,255,.045);
+      border: 1px solid rgba(255,255,255,.10);
+
+      box-shadow: 0 20px 60px rgba(0,0,0,.4);
     }
 
-    textarea {
+    #question {
       flex: 1;
-      height: 52px;
+      min-width: 0;
+
+      height: 50px;
+      max-height: 150px;
+
       resize: none;
+
       border: none;
       outline: none;
+
       background: transparent;
       color: white;
+
       padding: 13px;
-      font-size: 16px;
+
+      font-size: 15px;
+    }
+
+    #question::placeholder {
+      color: #666670;
     }
 
     .send-btn {
-      width: 90px;
+      width: 88px;
+      height: 48px;
+
       border: none;
       border-radius: 13px;
+
       background: white;
       color: black;
-      font-weight: bold;
-      cursor: pointer;
+
+      font-weight: 800;
+
+      transition: .2s;
     }
 
+    .send-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(255,255,255,.12);
+    }
+
+    /* ================= MOBILE ================= */
+
     @media (max-width: 600px) {
-      .card {
-        padding: 25px 20px;
+
+      .login-card {
+        padding: 28px 20px;
+        border-radius: 24px;
+      }
+
+      .logo {
+        font-size: 36px;
+        letter-spacing: 5px;
+      }
+
+      .topbar {
+        height: 60px;
+        padding: 0 14px;
+      }
+
+      .brand {
+        font-size: 17px;
+        letter-spacing: 3px;
+      }
+
+      .user-area span {
+        display: none;
       }
 
       .messages {
-        padding: 15px 8px;
+        padding: 20px 9px;
+      }
+
+      .bubble {
+        max-width: 88vw;
+        font-size: 14px;
+        padding: 12px 14px;
       }
 
       .composer {
-        padding: 8px;
+        padding: 8px 8px 14px;
       }
 
-      .account span {
-        display: none;
+      .send-btn {
+        width: 70px;
       }
     }
   </style>
@@ -293,73 +483,85 @@
 
 <body>
 
-  <!-- LOGIN PAGE -->
+  <!-- ================= LOGIN ================= -->
 
   <section id="auth">
 
-    <div class="card">
+    <div class="login-card">
 
       <div class="logo">
         MAZYAR
       </div>
 
-      <div class="subtitle">
-        هاوڕێی زیرەکی دەستکرد 🤖
+      <div class="tagline">
+        Your intelligent AI assistant
       </div>
 
 
-      <div id="usernameBox" class="hidden">
+      <div id="usernameField" class="field hidden">
 
         <label>
-          ناوی بەکارهێنەر
+          Username
         </label>
 
         <input
           id="username"
           type="text"
-          placeholder="ناوی تۆ">
+          placeholder="Your username">
 
       </div>
 
 
-      <label>
-        ئیمەیڵ
-      </label>
+      <div class="field">
 
-      <input
-        id="email"
-        type="email"
-        autocomplete="email"
-        placeholder="example@gmail.com">
+        <label>
+          Email
+        </label>
+
+        <input
+          id="email"
+          type="email"
+          autocomplete="email"
+          placeholder="you@example.com">
+
+      </div>
 
 
-      <label>
-        پاسوۆرد
-      </label>
+      <div class="field">
 
-      <input
-        id="password"
-        type="password"
-        autocomplete="current-password"
-        placeholder="••••••••">
+        <label>
+          Password
+        </label>
+
+        <input
+          id="password"
+          type="password"
+          autocomplete="current-password"
+          placeholder="••••••••">
+
+      </div>
 
 
       <button
         id="authBtn"
-        class="main-btn">
-        چوونەژوورەوە
+        class="primary-btn">
+
+        Sign in
+
       </button>
 
 
       <div class="divider">
-        یان
+        OR
       </div>
 
 
       <button
         id="googleBtn"
         class="google-btn">
+
         Continue with Google
+
       </button>
 
 
@@ -372,11 +574,11 @@
       <div class="switch">
 
         <span id="switchText">
-          هەژمارت نییە؟
+          Don't have an account?
         </span>
 
         <button id="switchBtn">
-          هەژمار دروست بکە
+          Create account
         </button>
 
       </div>
@@ -386,26 +588,30 @@
   </section>
 
 
-  <!-- CHAT PAGE -->
+  <!-- ================= CHAT ================= -->
 
   <section
     id="chat"
     class="hidden">
 
-    <header class="header">
+    <header class="topbar">
 
       <div class="brand">
         MAZYAR AI
       </div>
 
-      <div class="account">
 
-        <span id="userName"></span>
+      <div class="user-area">
+
+        <span id="userName">
+        </span>
 
         <button
           id="logoutBtn"
-          class="logout">
-          دەرچوون
+          class="logout-btn">
+
+          Logout
+
         </button>
 
       </div>
@@ -420,9 +626,9 @@
       <div class="message ai">
 
         <div class="bubble">
-          سڵاو 👋 من MAZYAR ـم.
-          <br>
-          بەخێربێیت! چ پرسیارێکت هەیە؟
+          Hello 👋
+          I am MAZYAR AI.
+          How can I help you today?
         </div>
 
       </div>
@@ -432,17 +638,19 @@
 
     <footer class="composer">
 
-      <div class="input-box">
+      <div class="input-wrap">
 
         <textarea
           id="question"
-          placeholder="پرسیارەکەت بنووسە...">
+          placeholder="Ask MAZYAR anything...">
         </textarea>
 
         <button
           id="sendBtn"
           class="send-btn">
-          ناردن
+
+          Send
+
         </button>
 
       </div>
@@ -452,7 +660,7 @@
   </section>
 
 
-  <!-- SUPABASE + JAVASCRIPT -->
+  <!-- ================= JAVASCRIPT ================= -->
 
   <script type="module">
 
@@ -462,9 +670,7 @@
     "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
 
-    /*
-      SUPABASE
-    */
+    /* SUPABASE */
 
     const SUPABASE_URL =
       "https://lwqdpovamqdmdqftewop.supabase.co";
@@ -488,14 +694,12 @@
       );
 
 
-    /*
-      ELEMENTS
-    */
+    /* ELEMENTS */
 
-    const authPage =
+    const auth =
       document.getElementById("auth");
 
-    const chatPage =
+    const chat =
       document.getElementById("chat");
 
     const email =
@@ -507,8 +711,8 @@
     const username =
       document.getElementById("username");
 
-    const usernameBox =
-      document.getElementById("usernameBox");
+    const usernameField =
+      document.getElementById("usernameField");
 
     const authBtn =
       document.getElementById("authBtn");
@@ -516,14 +720,14 @@
     const googleBtn =
       document.getElementById("googleBtn");
 
-    const errorBox =
-      document.getElementById("error");
-
     const switchBtn =
       document.getElementById("switchBtn");
 
     const switchText =
       document.getElementById("switchText");
+
+    const errorBox =
+      document.getElementById("error");
 
     const userName =
       document.getElementById("userName");
@@ -544,9 +748,7 @@
     let signUpMode = false;
 
 
-    /*
-      ERROR
-    */
+    /* ERROR */
 
     function showError(message) {
 
@@ -570,15 +772,22 @@
     }
 
 
-    /*
-      SHOW CHAT
-    */
+    /* LOGIN SCREEN */
+
+    function showLogin() {
+
+      chat.classList.add("hidden");
+      auth.classList.remove("hidden");
+
+    }
+
+
+    /* CHAT SCREEN */
 
     function showChat(user) {
 
-      authPage.classList.add("hidden");
-
-      chatPage.classList.remove("hidden");
+      auth.classList.add("hidden");
+      chat.classList.remove("hidden");
 
 
       const name =
@@ -595,22 +804,7 @@
     }
 
 
-    /*
-      SHOW LOGIN
-    */
-
-    function showLogin() {
-
-      chatPage.classList.add("hidden");
-
-      authPage.classList.remove("hidden");
-
-    }
-
-
-    /*
-      LOGIN / SIGN UP SWITCH
-    */
+    /* SWITCH LOGIN / SIGNUP */
 
     switchBtn.addEventListener(
       "click",
@@ -620,7 +814,7 @@
           !signUpMode;
 
 
-        usernameBox.classList.toggle(
+        usernameField.classList.toggle(
           "hidden",
           !signUpMode
         );
@@ -628,28 +822,29 @@
 
         authBtn.textContent =
           signUpMode
-            ? "هەژمار دروست بکە"
-            : "چوونەژوورەوە";
+            ? "Create account"
+            : "Sign in";
 
 
         switchText.textContent =
           signUpMode
-            ? "هەژمارت هەیە؟"
-            : "هەژمارت نییە؟";
+            ? "Already have an account?"
+            : "Don't have an account?";
 
 
         switchBtn.textContent =
           signUpMode
-            ? "چوونەژوورەوە"
-            : "هەژمار دروست بکە";
+            ? "Sign in"
+            : "Create account";
+
+
+        clearError();
 
       }
     );
 
 
-    /*
-      EMAIL LOGIN
-    */
+    /* EMAIL AUTH */
 
     authBtn.addEventListener(
       "click",
@@ -671,7 +866,7 @@
         if (!emailValue) {
 
           showError(
-            "ئیمەیڵ بنووسە."
+            "Please enter your email."
           );
 
           return;
@@ -682,7 +877,7 @@
         if (!passwordValue) {
 
           showError(
-            "پاسوۆرد بنووسە."
+            "Please enter your password."
           );
 
           return;
@@ -693,21 +888,21 @@
         authBtn.disabled =
           true;
 
-        authBtn.textContent =
-          "چاوەڕێ بکە...";
-
 
         try {
 
-
           if (signUpMode) {
-
 
             if (!usernameValue) {
 
-              throw new Error(
-                "ناوی بەکارهێنەر بنووسە."
+              showError(
+                "Please enter a username."
               );
+
+              authBtn.disabled =
+                false;
+
+              return;
 
             }
 
@@ -752,14 +947,12 @@
             } else {
 
               showError(
-                "هەژمار دروست بوو. تکایە ئیمەیڵەکەت پشتڕاست بکە."
+                "Account created. Please confirm your email."
               );
 
             }
 
-
           } else {
-
 
             const {
               data,
@@ -786,14 +979,13 @@
 
           }
 
-
         } catch (error) {
 
           console.error(error);
 
           showError(
             error.message ||
-            "هەڵەیەک ڕوویدا."
+            "Authentication error."
           );
 
         }
@@ -802,18 +994,11 @@
         authBtn.disabled =
           false;
 
-        authBtn.textContent =
-          signUpMode
-            ? "هەژمار دروست بکە"
-            : "چوونەژوورەوە";
-
       }
     );
 
 
-    /*
-      GOOGLE LOGIN
-    */
+    /* GOOGLE LOGIN */
 
     googleBtn.addEventListener(
       "click",
@@ -825,11 +1010,10 @@
           true;
 
         googleBtn.textContent =
-          "چاوەڕێ بکە...";
+          "Connecting...";
 
 
         try {
-
 
           const {
             error
@@ -859,15 +1043,15 @@
           if (error)
             throw error;
 
-
         } catch (error) {
 
           console.error(error);
 
           showError(
             error.message ||
-            "Google Login هەڵەی هەیە."
+            "Google login failed."
           );
+
 
           googleBtn.disabled =
             false;
@@ -881,15 +1065,13 @@
     );
 
 
-    /*
-      AUTH STATE
-    */
+    /* SESSION */
 
     supabase.auth.onAuthStateChange(
       (event, session) => {
 
         console.log(
-          "Auth:",
+          "Auth event:",
           event
         );
 
@@ -913,43 +1095,24 @@
     );
 
 
-    /*
-      CHECK SESSION
-    */
-
     async function checkSession() {
 
-      try {
-
-        const {
-          data,
-          error
-        } =
-        await supabase.auth.getSession();
+      const {
+        data
+      } =
+      await supabase.auth.getSession();
 
 
-        if (error)
-          throw error;
+      if (
+        data.session &&
+        data.session.user
+      ) {
 
-
-        if (
-          data.session &&
+        showChat(
           data.session.user
-        ) {
+        );
 
-          showChat(
-            data.session.user
-          );
-
-        } else {
-
-          showLogin();
-
-        }
-
-      } catch (error) {
-
-        console.error(error);
+      } else {
 
         showLogin();
 
@@ -961,9 +1124,7 @@
     checkSession();
 
 
-    /*
-      LOGOUT
-    */
+    /* LOGOUT */
 
     logoutBtn.addEventListener(
       "click",
@@ -977,21 +1138,19 @@
     );
 
 
-    /*
-      ADD MESSAGE
-    */
+    /* ADD MESSAGE */
 
     function addMessage(
       text,
       type
     ) {
 
-      const row =
+      const message =
         document.createElement(
           "div"
         );
 
-      row.className =
+      message.className =
         "message " + type;
 
 
@@ -1007,12 +1166,12 @@
         text;
 
 
-      row.appendChild(
+      message.appendChild(
         bubble
       );
 
       messages.appendChild(
-        row
+        message
       );
 
 
@@ -1025,9 +1184,7 @@
     }
 
 
-    /*
-      SEND MESSAGE TO AI
-    */
+    /* AI */
 
     async function sendMessage() {
 
@@ -1051,13 +1208,12 @@
 
       const answer =
         addMessage(
-          "MAZYAR خەریکی بیرکردنەوەیە... 🤖",
+          "MAZYAR is thinking...",
           "ai"
         );
 
 
       try {
-
 
         const response =
           await fetch(
@@ -1068,18 +1224,14 @@
                 "POST",
 
               headers: {
-
                 "Content-Type":
                   "application/json"
-
               },
 
               body:
                 JSON.stringify({
-
                   message:
                     text
-
                 })
 
             }
@@ -1094,7 +1246,7 @@
 
           throw new Error(
             data.error ||
-            "AI Error"
+            "AI request failed."
           );
 
         }
@@ -1102,15 +1254,14 @@
 
         answer.textContent =
           data.answer ||
-          "وەڵامێک نەهاتەوە.";
-
+          "No answer received.";
 
       } catch (error) {
 
         console.error(error);
 
         answer.textContent =
-          "ببورە، کێشەیەک لە پەیوەندی بە AI هەیە.";
+          "Sorry, there is a problem connecting to AI.";
 
       }
 
@@ -1123,13 +1274,9 @@
     );
 
 
-    /*
-      ENTER TO SEND
-    */
-
     question.addEventListener(
       "keydown",
-      (event) => {
+      event => {
 
         if (
           event.key === "Enter" &&
