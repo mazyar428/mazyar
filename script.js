@@ -1,134 +1,111 @@
-```javascript
-const products = [
-  {
-    id: 1,
-    name: "Wireless Headphones",
-    price: 29.99,
-    image: "https://placehold.co/500x500?text=Headphones"
-  },
-  {
-    id: 2,
-    name: "Smart Watch",
-    price: 39.99,
-    image: "https://placehold.co/500x500?text=Smart+Watch"
-  },
-  {
-    id: 3,
-    name: "Portable Speaker",
-    price: 24.99,
-    image: "https://placehold.co/500x500?text=Speaker"
-  },
-  {
-    id: 4,
-    name: "Gaming Mouse",
-    price: 19.99,
-    image: "https://placehold.co/500x500?text=Gaming+Mouse"
+// --- 1. دەستنیشانکردنی ئەلەمێنتەکانی DOM ---
+const authScreen = document.getElementById('authScreen');
+const chatScreen = document.getElementById('chatScreen');
+const loginForm = document.getElementById('loginForm');
+const googleBtn = document.getElementById('googleBtn');
+const logoutBtn = document.getElementById('logoutBtn');
+
+const chatMessages = document.getElementById('chatMessages');
+const userInput = document.getElementById('userInput');
+const sendBtn = document.getElementById('sendBtn');
+
+// --- 2. بەڕێوەبردنی حاڵەتی چوونەژوورەوە و دەرچوون ---
+function showChatView() {
+  authScreen.style.display = 'none';
+  chatScreen.style.display = 'flex';
+}
+
+function showLoginView() {
+  chatScreen.style.display = 'none';
+  authScreen.style.display = 'block';
+  chatMessages.innerHTML = '<div class="message bot">سڵاو! من ژیریی دەستکردم. چۆن دەتوانم هاوکاریت بکەم؟</div>';
+}
+
+// چوونەژوورەوە بە ئیمەیڵ و وشەی نهێنی
+loginForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+
+  if (email && password) {
+    // لێرەدا دەتوانیت Firebase Auth یان API ناوەکی خۆت بەکاربهێنیت
+    console.log(`Loggin in with: ${email}`);
+    showChatView();
   }
-];
-
-let cart = [];
-
-const productsContainer = document.getElementById("products");
-const search = document.getElementById("search");
-
-function showProducts(list = products) {
-  productsContainer.innerHTML = "";
-
-  list.forEach(product => {
-    productsContainer.innerHTML += `
-      <div class="product">
-        <img src="${product.image}" alt="${product.name}">
-        <h3>${product.name}</h3>
-        <p>Fast delivery available</p>
-        <div class="price">$${product.price.toFixed(2)}</div>
-
-        <button onclick="addToCart(${product.id})">
-          Add to Cart
-        </button>
-      </div>
-    `;
-  });
-}
-
-function addToCart(id) {
-  const product = products.find(p => p.id === id);
-
-  if (!product) return;
-
-  cart.push(product);
-  updateCart();
-}
-
-function updateCart() {
-  document.getElementById("cartCount").textContent = cart.length;
-
-  const items = document.getElementById("cartItems");
-
-  items.innerHTML = "";
-
-  let total = 0;
-
-  cart.forEach((product, index) => {
-    total += product.price;
-
-    items.innerHTML += `
-      <div class="cartItem">
-        <span>${product.name}</span>
-        <strong>$${product.price.toFixed(2)}</strong>
-
-        <button onclick="removeFromCart(${index})">
-          ✕
-        </button>
-      </div>
-    `;
-  });
-
-  document.getElementById("total").textContent =
-    total.toFixed(2);
-}
-
-function removeFromCart(index) {
-  cart.splice(index, 1);
-  updateCart();
-}
-
-function openCart() {
-  document.getElementById("cartModal").classList.add("show");
-}
-
-function closeCart() {
-  document.getElementById("cartModal").classList.remove("show");
-}
-
-function checkout() {
-
-  if (cart.length === 0) {
-    alert("Your cart is empty.");
-    return;
-  }
-
-  const total = cart.reduce(
-    (sum, product) => sum + product.price,
-    0
-  );
-
-  alert(
-    "Order total: $" +
-    total.toFixed(2) +
-    "\n\nNext step: connect a real payment gateway."
-  );
-}
-
-search.addEventListener("input", function () {
-
-  const value = search.value.toLowerCase();
-
-  const filtered = products.filter(product =>
-    product.name.toLowerCase().includes(value)
-  );
-
-  showProducts(filtered);
 });
 
-showProducts();
-```
+// چوونەژوورەوە بە Google
+googleBtn.addEventListener('click', () => {
+  // شوێنی بەستنەوەی Google Auth SDK
+  console.log('Initiating Google Login...');
+  showChatView();
+});
+
+// دەرچوون لە ئەپڵیکەیشن
+logoutBtn.addEventListener('click', () => {
+  showLoginView();
+});
+
+
+// --- 3. لۆجیکی چات و پەیوەندیکردن بە AI ---
+
+// ناردنی پەیام
+function sendMessage() {
+  const text = userInput.value.trim();
+  if (text === '') return;
+
+  // ۱. نیشاندانی پەیامی بەکارهێنەر
+  appendMessage(text, 'user');
+  userInput.value = '';
+
+  // ۲. نیشاندانی نیشانەی "وەڵامدانەوە..."
+  const typingIndicator = appendMessage('لە وەڵامدانەوەدایە...', 'bot');
+
+  // ۳. پەیوەندیکردن بە APIی ژیریی دەستکرد (نموونە بۆ OpenAI یان backend)
+  fetchAIResponse(text)
+    .then((reply) => {
+      typingIndicator.textContent = reply;
+    })
+    .catch((err) => {
+      typingIndicator.textContent = 'کێشەیەک ڕوویدا لە وەرگرتنی وەڵام.';
+      console.error(err);
+    });
+}
+
+// دروستکردنی ئەلەمێنتی پەیام لەرێگەی DOM
+function appendMessage(text, sender) {
+  const msgDiv = document.createElement('div');
+  msgDiv.classList.add('message', sender);
+  msgDiv.textContent = text;
+  
+  chatMessages.appendChild(msgDiv);
+  chatMessages.scrollTop = chatMessages.scrollHeight; // Auto scroll بۆ خوارەوە
+  
+  return msgDiv;
+}
+
+// سیستەمی وەڵامدانەوەی دەستکرد (Mock API / Real API Target)
+async function fetchAIResponse(userText) {
+  /* ئەگەر API واقعی بەکاربهێنیت:
+  const response = await fetch('https://api.your-backend.com/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message: userText })
+  });
+  const data = await response.json();
+  return data.reply;
+  */
+
+  // وەڵامی نموونەیی بۆ تاقیکردنەوە (دواکەوتنی ۱ چرکە)
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(`وەڵامی دروستکراو بۆ: "${userText}"`);
+    }, 1000);
+  });
+}
+
+// گوێگرتن لە کلیلی Enter و دوگمەی Send
+sendBtn.addEventListener('click', sendMessage);
+userInput.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') sendMessage();
+});
