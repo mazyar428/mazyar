@@ -94,12 +94,8 @@ opacity:.5;
 .google-btn{
 margin-top:10px;
 border:1px solid #ffffff20;
-background:#ffffff08;
-color:#fff;
-}
-
-.google-btn:hover{
-background:#ffffff12;
+background:#fff;
+color:#111;
 }
 
 .divider{
@@ -608,7 +604,8 @@ await supabase.auth.signInWithOAuth({
 provider: "google",
 
 options:{
-redirectTo: window.location.origin
+redirectTo:
+"https://mazyar.vercel.app/"
 }
 
 });
